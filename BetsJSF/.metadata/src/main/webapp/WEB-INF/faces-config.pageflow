@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf16695485374890" configfile="/BetsJSF/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="Login.xhtml" x="237" y="389" id="pf16695515195281" outlinks="pf16695515195282 pf16695515195283" path="/Login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="CreateQuestions.xhtml" x="502" y="564" id="pf16695515195294" inlinks="pf16695515195283" path="/CreateQuestions.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="QueryQuestions.xhtml" x="504" y="288" id="pf16695515195295" inlinks="pf16695515195282" path="/QueryQuestions.xhtml"/>
+  <links id="pf16695515195282" target="pf16695515195295" source="pf16695515195281" outcome="okUser"/>
+  <links id="pf16695515195283" target="pf16695515195294" source="pf16695515195281" outcome="okAdmin"/>
+</pageflow:Pageflow>
