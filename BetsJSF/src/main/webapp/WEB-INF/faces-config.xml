@@ -15,6 +15,11 @@
 		<managed-bean-class>modelon.bean.QueryQuestionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>signUp</managed-bean-name>
+		<managed-bean-class>modelon.bean.SignUpBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
 	<navigation-rule>
 		<display-name>Login.xhtml</display-name>
 		<from-view-id>/Login.xhtml</from-view-id>
@@ -29,6 +34,14 @@
 		<navigation-case>
 			<from-outcome>okUser</from-outcome>
 			<to-view-id>/QueryQuestion.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>SignUp.xhtml</display-name>
+		<from-view-id>/SignUp.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>OkSignUp</from-outcome>
+			<to-view-id>/Login.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
