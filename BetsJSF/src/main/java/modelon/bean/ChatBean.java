@@ -56,14 +56,6 @@ public class ChatBean {
 		}
 		
 	}
-	
-	public void viewScreen() {
-		if(!chat.isEmpty()) {
-			for(Comentario com:chat) {
-				System.out.println(com);
-				System.out.println("Pasa");
-			}
-		}
-	}
+
 	
 }
