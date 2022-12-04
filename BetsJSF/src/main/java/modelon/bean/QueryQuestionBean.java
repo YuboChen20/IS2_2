@@ -1,22 +1,17 @@
 package modelon.bean;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.Vector;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import org.primefaces.event.SelectEvent;
 
-import configuration.ConfigXML;
-import configuration.UtilDate;
+
 import domain.*;
-import gui.MainGUI;
+
 import businessLogic.*;
 import dataAccess.*;
 
@@ -25,11 +20,37 @@ public class QueryQuestionBean {
 
 	private Date fecha;
 	private Event even;
+	private Question quest;
+	private BLFacade appFacadeInterface;
+	
 	private static List<Event> eventos=new ArrayList<Event>();
+	private static List<Question> quests=new ArrayList<Question>();
+	
+	public QueryQuestionBean() {
+		 appFacadeInterface=new BLFacadeImplementation(new DataAccess(true));
+	}
+	
+	
+	public Question getQuest() {
+		return quest;
+	}
+
+	public void setQuest(Question quest) {
+		this.quest = quest;
+	}
+
+	public List<Question> getQuests() {
+		return quests;
+	}
+
+	public void setQuests(List<Question> quests) {
+		this.quests = quests;
+	}
+	
+	
 	public Event getEven() {
 		 return even;
 	}
-
 	public void setEven(Event even) {
 		 this.even = even;
 		 System.out.println("El tipo del evento: "+even.getEventNumber()+"/"+even.getDescription());
@@ -49,12 +70,12 @@ public class QueryQuestionBean {
 		this.fecha = fecha; 
 	}
 	public void onDateSelect(SelectEvent event) {
-		 FacesContext.getCurrentInstance().addMessage(null,
+		 FacesContext.getCurrentInstance().addMessage("miForm: mensajes",
 		 new FacesMessage("Fecha escogida: "+event.getObject()));
-		 BLFacade appFacadeInterface=new BLFacadeImplementation(new DataAccess(true));
+		 
+		 
 		 this.setEventos(appFacadeInterface.getEvents((Date)event.getObject()));
-		 System.out.println("---------------");
-		 System.out.println(eventos.toString());
+	
 	}
 	public static Event getObject(String even) {
 		 for (Event t: eventos){
@@ -62,14 +83,12 @@ public class QueryQuestionBean {
 		 return t;}
 		 return null;
 		}
-	public void listener(AjaxBehaviorEvent event) {
-		 FacesContext.getCurrentInstance().addMessage(null,
-		 new FacesMessage("El tipo del usuario:"+even.getEventNumber()+"/"+even.getDescription()));
-		}
+
 	public void onEventSelect(SelectEvent event) {
 		this.even=(Event)event.getObject();
-		FacesContext.getCurrentInstance().addMessage("miForm:mensajes",
-		 new FacesMessage("El tipo del usuario (tabla):"+even.getEventNumber()+"/"+even.getDescription()));
+		FacesContext.getCurrentInstance().addMessage("miForm:escogido",
+		 new FacesMessage("Evento escogido : Nº"+even.getEventNumber()+"["+even.getDescription()+"]"));
+		this.setQuests(even.getQuestions());
 		}
 
 

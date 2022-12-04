@@ -9,30 +9,44 @@ xmlns:p="http://primefaces.org/ui">
 <f:view>
 <h:head><title>Aplicación JavaServer Faces</title></h:head>
 <h:body>
-<h:form>
+<h:form id="miForm">
 <table>
 <tr>
-<td>Escoge una fecha:</td>
-<td><p:calendar id="fecha" value="#{queryQuestion.fecha}" navigator="false" mode="inline">
+<td>Escoge una fecha:
+<p:calendar id="fecha" value="#{queryQuestion.fecha}" navigator="false" mode="inline">
 <p:ajax event="dateSelect" listener="#{queryQuestion.onDateSelect}"
-update="mensajes"></p:ajax>
-</p:calendar></td>
-<td><h:message for="pass" style="color:red" /></td>
-</tr>
-
-<tr>
-<td><p:dataTable id="tablaPF" value="#{queryQuestion.eventos}" var="item" selectionMode="single"
-selection="#{queryQuestion.even}" border="1" rowKey="#{item.eventNumber}">
-<f:facet name="header">tipo de evento:</f:facet>
-<p:column headerText="Código">#{item.eventNumber}</p:column>
-<p:column headerText="tipo">#{item.description}</p:column>
-</p:dataTable></td>
-<td><h:outputText id="escogido" value="#{queryQuestion.even}" style="color:red" /></td>
-</tr> 
-</table>
+update=":miForm:mensajes :miForm:tablaPF"></p:ajax>
+</p:calendar>
 <p>
 <h:messages id="mensajes" style="color:blue"/>
 </p>
+
+</td>
+
+<td><p:dataTable id="tablaPF" value="#{queryQuestion.eventos}" var="item" selectionMode="single"
+selection="#{queryQuestion.even}" border="1" rowKey="#{item.eventNumber}">
+<p:ajax event="rowSelect" listener="#{queryQuestion.onEventSelect}"
+ update=":miForm:escogido :miForm:tablaQ" ></p:ajax>
+<f:facet name="header">Selecione un evento:</f:facet>
+<p:column headerText="Código">#{item.eventNumber}</p:column>
+<p:column headerText="Eventos">#{item.description}</p:column>
+</p:dataTable>
+<h:messages id="escogido" value="#{queryQuestion.even}" style="color:blue" /></td>
+
+
+
+
+<td><p:dataTable id="tablaQ" value="#{queryQuestion.quests}" var="item" selectionMode="single"
+selection="#{queryQuestion.quest}" border="1" rowKey="#{item.questionNumber}">
+<f:facet name="header">Selecione una apuesta:</f:facet>
+<p:column headerText="Código">#{item.questionNumber}</p:column>
+<p:column headerText="Apuestas">#{item.question}</p:column>
+</p:dataTable></td>
+<td><h:outputText id="escogido2" value="#{queryQuestion.quest}" style="color:red" /></td>
+</tr> 
+
+</table>
+
 </h:form> 
 </h:body>
 </f:view>
