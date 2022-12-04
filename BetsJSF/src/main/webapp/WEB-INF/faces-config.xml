@@ -49,5 +49,13 @@
 			<to-view-id>/Login.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<display-name>Login.xhtml</display-name>
+		<from-view-id>/Login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>SignUpOk</from-outcome>
+			<to-view-id>/SignUp.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 
 </faces-config>

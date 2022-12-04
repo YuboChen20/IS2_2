@@ -32,6 +32,10 @@ public class LoginBean {
 	 return "okUser";
 	 }
 	 } 
+	
+	public String registrarse() {
+		return "SignUpOk";
+	} 
   
   
 }
