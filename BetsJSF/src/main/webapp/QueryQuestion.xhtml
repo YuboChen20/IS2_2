@@ -35,7 +35,6 @@ selection="#{queryQuestion.even}" border="1" rowKey="#{item.eventNumber}">
 
 
 
-
 <td><p:dataTable id="tablaQ" value="#{queryQuestion.quests}" var="item" selectionMode="single"
 selection="#{queryQuestion.quest}" border="1" rowKey="#{item.questionNumber}">
 <f:facet name="header">Selecione una apuesta:</f:facet>
@@ -47,7 +46,15 @@ selection="#{queryQuestion.quest}" border="1" rowKey="#{item.questionNumber}">
 
 </table>
 
+<h:inputTextarea cols="70" rows="10" readonly="true" value='#{queryQuestion.ult}'/>
+	<br/>
+	<h3>Tu Comentario</h3>   Tamaño de Comentario: <h:outputText id="display" class="block" /><p>     </p>
+	<p:inputTextarea id="comentarioTextField" rows="3" cols="90" maxlength="180" counter="display" counterTemplate="{0} caracteres restantes." autoResize="false" value="#{queryQuestion.text}"/>
+	<br/>
+	<br/>
+	<h:commandButton value="Enviar" action="#{queryQuestion.sendComment}"/>
 </h:form> 
+
 </h:body>
 </f:view>
 </ui:composition>
