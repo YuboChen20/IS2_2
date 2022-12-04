@@ -3,15 +3,75 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 xmlns:ui="http://java.sun.com/jsf/facelets"
 xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core">
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+<ui:composition>
 <f:view>
-<h:head><title>Create Question</title></h:head>
+<h:head><title>Aplicación JavaServer Faces</title></h:head>
 <h:body>
-<h:form>
-<h3>Calendario de eventos </h3>
+<h:form id="miForm">
+
 <table>
+<tr>
+
+<td><p:calendar id="fecha" value="#{createQuestion.fecha}" navigator="false" mode="inline">
+<p:ajax event="dateSelect" listener="#{createQuestion.onDateSelect}"
+update= ":miForm:m :miForm:escogido :miForm:tablaPF :miForm:tablaQuest"></p:ajax>
+</p:calendar></td>
+
+<td><p:dataTable id="tablaPF" value="#{createQuestion.eventos}" var="item" selectionMode="single"
+selection="#{createQuestion.ev}" border="1" rowKey="#{item.eventNumber}">
+<p:ajax event="rowSelect" listener="#{createQuestion.onEventSelect}"
+update= ":miForm:escogido :miForm:tablaQuest"></p:ajax>
+<f:facet name="header">Eventos:</f:facet>
+<p:column headerText="Código">#{item.eventNumber}</p:column>
+<p:column headerText="Descripción">#{item.description}</p:column>
+</p:dataTable></td>
+
+<td><p:dataTable id="tablaQuest" value="#{createQuestion.questions}" var="item" selectionMode="single"
+selection="#{createQuestion.q}" border="1" rowKey="#{item.questionNumber}">
+<f:facet name="header">Questions:</f:facet>
+<p:column headerText="Bet Minimum">#{item.betMinimum}</p:column>
+<p:column headerText="Descripción">#{item.question}</p:column>
+</p:dataTable></td>
+
+</tr>
 </table>
+
+<br/>
+<h:outputText id="m" value="#{createQuestion.fecha}" style="color:blue" />
+<br/>
+<h:outputText id="escogido" value="#{createQuestion.ev}" style="color:blue" />
+<br/>
+<br/>
+<tr>
+<td>Question:</td>
+<td><h:inputText id="que" value="#{createQuestion.question}" size="36">
+	<f:validateLength minimum="5" maximum="100"/>
+</h:inputText></td>
+</tr>
+<br/>
+<tr><h:message for="que" style="color:red" /></tr>
+<br/>
+<br/>
+<tr>
+<td>Bet Minimum:</td>
+<td><h:inputText id="betm" value="#{createQuestion.betMinimum}" size="4">
+	<f:validateDoubleRange minimum="1.0" maximum="5000.00"/>
+</h:inputText></td>
+</tr>
+<br/>
+<tr><h:message for="betm" style="color:red" /></tr>
+
+<p>
+<h:commandButton value="CREAR" action="#{createQuestion.create}"/>
+</p> 
+<h:outputText id="mensaje" value="#{createQuestion.mensaje}" style="color:red" />
+
 </h:form>
+
 </h:body>
 </f:view>
-</html> 
+</ui:composition>
+</html>
+
