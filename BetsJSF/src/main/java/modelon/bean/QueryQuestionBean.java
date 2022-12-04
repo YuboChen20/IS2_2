@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Vector;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -11,33 +13,23 @@ import javax.faces.event.AjaxBehaviorEvent;
 
 import org.primefaces.event.SelectEvent;
 
+import configuration.ConfigXML;
 import configuration.UtilDate;
-import domain.Event;
+import domain.*;
+import gui.MainGUI;
+import businessLogic.*;
+import dataAccess.*;
+
 
 public class QueryQuestionBean {
 
 	private Date fecha;
 	private Event even;
 	private static List<Event> eventos=new ArrayList<Event>();
-	
-	public QueryQuestionBean() { 
-		   Calendar today = Calendar.getInstance();	   
-		   int month=today.get(Calendar.MONTH);
-		   month+=1;
-		   int year=today.get(Calendar.YEAR);
-		   if (month==12) { month=0; year+=1;}  
-			eventos.add(new Event(1, "Cádiz-Rayo Vallecano", UtilDate.newDate(year,month,17)));
-			eventos.add(new Event(2, "Real Betis-Levante", UtilDate.newDate(year,month,17)));
-			eventos.add(new Event(3, "Real Sociedad-Real Madrid", UtilDate.newDate(year,month,17)));
-			eventos.add(new Event(4, "Atlético de Madrid-Athletic de Bilbao", UtilDate.newDate(year,month,1)));
-			eventos.add(new Event(5, "Elche-Barcelona", UtilDate.newDate(year,month,1)));
-			for (Event e :eventos) {
-				System.out.println(e.toString());
-			}
-	 }
 	public Event getEven() {
 		 return even;
 	}
+
 	public void setEven(Event even) {
 		 this.even = even;
 		 System.out.println("El tipo del evento: "+even.getEventNumber()+"/"+even.getDescription());
@@ -54,11 +46,15 @@ public class QueryQuestionBean {
 		return fecha;
 	}
 	public void setFecha(Date fecha) {
-		this.fecha = fecha;
+		this.fecha = fecha; 
 	}
 	public void onDateSelect(SelectEvent event) {
 		 FacesContext.getCurrentInstance().addMessage(null,
 		 new FacesMessage("Fecha escogida: "+event.getObject()));
+		 BLFacade appFacadeInterface=new BLFacadeImplementation(new DataAccess(true));
+		 this.setEventos(appFacadeInterface.getEvents((Date)event.getObject()));
+		 System.out.println("---------------");
+		 System.out.println(eventos.toString());
 	}
 	public static Event getObject(String even) {
 		 for (Event t: eventos){

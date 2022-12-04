@@ -11,6 +11,14 @@ xmlns:p="http://primefaces.org/ui">
 <h:body>
 <h:form>
 <table>
+<tr>
+<td>Escoge una fecha:</td>
+<td><p:calendar id="fecha" value="#{queryQuestion.fecha}" navigator="false" mode="inline">
+<p:ajax event="dateSelect" listener="#{queryQuestion.onDateSelect}"
+update="mensajes"></p:ajax>
+</p:calendar></td>
+<td><h:message for="pass" style="color:red" /></td>
+</tr>
 
 <tr>
 <td><p:dataTable id="tablaPF" value="#{queryQuestion.eventos}" var="item" selectionMode="single"
@@ -22,6 +30,9 @@ selection="#{queryQuestion.even}" border="1" rowKey="#{item.eventNumber}">
 <td><h:outputText id="escogido" value="#{queryQuestion.even}" style="color:red" /></td>
 </tr> 
 </table>
+<p>
+<h:messages id="mensajes" style="color:blue"/>
+</p>
 </h:form> 
 </h:body>
 </f:view>
