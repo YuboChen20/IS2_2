@@ -14,8 +14,8 @@ import businessLogic.BLFacade;
 import businessLogic.BLFacadeImplementation;
 
 import dataAccess.DataAccess;
-import domain.Event;
-import domain.Question;
+import modelo.dominio.Event;
+import modelo.dominio.Question;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 

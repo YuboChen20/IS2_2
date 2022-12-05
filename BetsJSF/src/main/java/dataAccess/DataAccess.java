@@ -1,6 +1,7 @@
 package dataAccess;
 
 import java.io.File;
+import java.util.ArrayList;
 //hello
 import java.util.Calendar;
 import java.util.Date;
@@ -14,38 +15,27 @@ import java.util.Vector;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import configuration.ConfigXML;
 import configuration.UtilDate;
-import domain.Event;
-import domain.Question;
+import modelo.dominio.*;
+
 import exceptions.QuestionAlreadyExist;
+import modelo.HibernateUtil;
+import org.hibernate.Session; 
+
 
 /**
  * It implements the data access to the objectDb database
  */
-public class DataAccess implements DataAccessInterface {
-	protected static EntityManager  db;
-	protected static EntityManagerFactory emf;
-
-
-	ConfigXML c=ConfigXML.getInstance();
-
-     public DataAccess(boolean initializeMode)  {
+public class DataAccess {
+	
+	
+	public DataAccess() {}
 		
-		System.out.println("Creating DataAccess instance => isDatabaseLocal: "+c.isDatabaseLocal()+" getDatabBaseOpenMode: "+c.getDataBaseOpenMode());
 
-		open();
-		
-		/*if (initializeMode)
-			initializeDB();
-		*/
-	}
-
-	public DataAccess()  {	
-		 new DataAccess(false);
-	}
 	
 	
 	/**
@@ -54,7 +44,8 @@ public class DataAccess implements DataAccessInterface {
 	 */	
 	public void initializeDB(){
 		
-		db.getTransaction().begin();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction(); 
 		try {
 
 			
@@ -96,63 +87,47 @@ public class DataAccess implements DataAccessInterface {
 			Question q5;
 			Question q6;
 					
-			if (Locale.getDefault().equals(new Locale("es"))) {
-				q1=ev1.addQuestion("¿Quién ganará el partido?",1);
-				q2=ev1.addQuestion("¿Quién meterá el primer gol?",2);
-				q3=ev11.addQuestion("¿Quién ganará el partido?",1);
-				q4=ev11.addQuestion("¿Cuántos goles se marcarán?",2);
-				q5=ev17.addQuestion("¿Quién ganará el partido?",1);
-				q6=ev17.addQuestion("¿Habrá goles en la primera parte?",2);
-			}
-			else if (Locale.getDefault().equals(new Locale("en"))) {
-				q1=ev1.addQuestion("Who will win the match?",1);
-				q2=ev1.addQuestion("Who will score first?",2);
-				q3=ev11.addQuestion("Who will win the match?",1);
-				q4=ev11.addQuestion("How many goals will be scored in the match?",2);
-				q5=ev17.addQuestion("Who will win the match?",1);
-				q6=ev17.addQuestion("Will there be goals in the first half?",2);
-			}			
-			else {
-				q1=ev1.addQuestion("Zeinek irabaziko du partidua?",1);
-				q2=ev1.addQuestion("Zeinek sartuko du lehenengo gola?",2);
-				q3=ev11.addQuestion("Zeinek irabaziko du partidua?",1);
-				q4=ev11.addQuestion("Zenbat gol sartuko dira?",2);
-				q5=ev17.addQuestion("Zeinek irabaziko du partidua?",1);
-				q6=ev17.addQuestion("Golak sartuko dira lehenengo zatian?",2);
-				
-			}
+		
+			q1=ev1.addQuestion("¿Quién ganará el partido?",1);
+			q2=ev1.addQuestion("¿Quién meterá el primer gol?",2);
+			q3=ev11.addQuestion("¿Quién ganará el partido?",1);
+			q4=ev11.addQuestion("¿Cuántos goles se marcarán?",2);
+			q5=ev17.addQuestion("¿Quién ganará el partido?",1);
+			q6=ev17.addQuestion("¿Habrá goles en la primera parte?",2);
 			
 			
-			db.persist(q1);
-			db.persist(q2);
-			db.persist(q3);
-			db.persist(q4);
-			db.persist(q5);
-			db.persist(q6);
+			
+			
+			session.save(q1);
+			session.save(q2);
+			session.save(q3);
+			session.save(q4);
+			session.save(q5);
+			session.save(q6);
 	
 	        
-			db.persist(ev1);
-			db.persist(ev2);
-			db.persist(ev3);
-			db.persist(ev4);
-			db.persist(ev5);
-			db.persist(ev6);
-			db.persist(ev7);
-			db.persist(ev8);
-			db.persist(ev9);
-			db.persist(ev10);
-			db.persist(ev11);
-			db.persist(ev12);
-			db.persist(ev13);
-			db.persist(ev14);
-			db.persist(ev15);
-			db.persist(ev16);
-			db.persist(ev17);
-			db.persist(ev18);
-			db.persist(ev19);
-			db.persist(ev20);			
+			session.save(ev1);
+			session.save(ev2);
+			session.save(ev3);
+			session.save(ev4);
+			session.save(ev5);
+			session.save(ev6);
+			session.save(ev7);
+			session.save(ev8);
+			session.save(ev9);
+			session.save(ev10);
+			session.save(ev11);
+			session.save(ev12);
+			session.save(ev13);
+			session.save(ev14);
+			session.save(ev15);
+			session.save(ev16);
+			session.save(ev17);
+			session.save(ev18);
+			session.save(ev19);
+			session.save(ev20);			
 			
-			db.getTransaction().commit();
+			session.getTransaction().commit();
 			System.out.println("Db initialized");
 		}
 		catch (Exception e){
@@ -170,23 +145,34 @@ public class DataAccess implements DataAccessInterface {
  	 * @throws QuestionAlreadyExist if the same question already exists for the event
 	 */
 	public Question createQuestion(Event event, String question, float betMinimum) throws  QuestionAlreadyExist {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		System.out.println(">> DataAccess: createQuestion=> event= "+event+" question= "+question+" betMinimum="+betMinimum);
-		System.out.println(db+" "+event);
+		System.out.println(session+" "+event);
 		
-		
-			Event ev = db.find(Event.class, event.getEventNumber());
+			Event ev= getEvent(event);
 			
 			if (ev.DoesQuestionExists(question)) throw new QuestionAlreadyExist(ResourceBundle.getBundle("Etiquetas").getString("ErrorQueryAlreadyExist"));
-			
-			db.getTransaction().begin();
+			session.beginTransaction(); 
 			Question q = ev.addQuestion(question, betMinimum);
 			//db.persist(q);
-			db.persist(ev); // db.persist(q) not required when CascadeType.PERSIST is added in questions property of Event class
+			session.save(ev); // db.persist(q) not required when CascadeType.PERSIST is added in questions property of Event class
 							// @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-			db.getTransaction().commit();
+			session.getTransaction().commit();
 			return q;
 		
 	}
+	
+	public Event getEvent(Event e) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction(); 
+		org.hibernate.Query q = session.createQuery("select * from Event e where eventNumber=:ev");
+        q.setParameter("ev", e.getEventNumber());
+        List<Event> result=q.list();
+        Event ev=result.get(0);
+        session.getTransaction().commit();
+        return ev;
+	}
+	
 	
 	/**
 	 * This method retrieves from the database the events of a given date 
@@ -194,12 +180,15 @@ public class DataAccess implements DataAccessInterface {
 	 * @param date in which events are retrieved
 	 * @return collection of events
 	 */
-	public Vector<Event> getEvents(Date date) {
+	public List<Event> getEvents(Date date) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		System.out.println(">> DataAccess: getEvents");
-		Vector<Event> res = new Vector<Event>();	
-		TypedQuery<Event> query = db.createQuery("SELECT ev FROM Event ev WHERE ev.eventDate=?1",Event.class);   
-		query.setParameter(1, date);
-		List<Event> events = query.getResultList();
+		List<Event> res = new ArrayList<Event>();	
+		session.beginTransaction(); 
+		org.hibernate.Query query = session.createQuery("SELECT ev FROM Event ev WHERE ev.eventDate=:e");   
+		query.setParameter("e", date);
+		session.getTransaction().commit();
+		List<Event> events = query.list();
 	 	 for (Event ev:events){
 	 	   System.out.println(ev.toString());		 
 		   res.add(ev);
@@ -213,18 +202,20 @@ public class DataAccess implements DataAccessInterface {
 	 * @param date of the month for which days with events want to be retrieved 
 	 * @return collection of dates
 	 */
-	public Vector<Date> getEventsMonth(Date date) {
+	public List<Date> getEventsMonth(Date date) {
 		System.out.println(">> DataAccess: getEventsMonth");
-		Vector<Date> res = new Vector<Date>();	
+		List<Date> res = new ArrayList<Date>();	
 		
 		Date firstDayMonthDate= UtilDate.firstDayMonth(date);
 		Date lastDayMonthDate= UtilDate.lastDayMonth(date);
 				
-		
-		TypedQuery<Date> query = db.createQuery("SELECT DISTINCT ev.eventDate FROM Event ev WHERE ev.eventDate BETWEEN ?1 and ?2",Date.class);   
-		query.setParameter(1, firstDayMonthDate);
-		query.setParameter(2, lastDayMonthDate);
-		List<Date> dates = query.getResultList();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction(); 
+		org.hibernate.Query query = session.createQuery("SELECT DISTINCT ev.eventDate FROM Event ev WHERE ev.eventDate BETWEEN :uno and :dos");   
+		query.setParameter("uno", firstDayMonthDate);
+		query.setParameter("dos", lastDayMonthDate);
+		List<Date> dates = query.list();
+		session.getTransaction().commit();
 	 	 for (Date d:dates){
 	 	   System.out.println(d.toString());		 
 		   res.add(d);
@@ -232,51 +223,27 @@ public class DataAccess implements DataAccessInterface {
 	 	return res;
 	}
 	
-@Override
-public void open(){
-		
-		System.out.println("Opening DataAccess instance => isDatabaseLocal: "+c.isDatabaseLocal()+" getDatabBaseOpenMode: "+c.getDataBaseOpenMode());
-
-		String fileName=c.getDbFilename();
-		
-		
-		if (c.isDatabaseLocal()) {
-			  emf = Persistence.createEntityManagerFactory("objectdb:"+fileName);
-			  db = emf.createEntityManager();
-		} else {
-			Map<String, String> properties = new HashMap<String, String>();
-			  properties.put("javax.persistence.jdbc.user", c.getUser());
-			  properties.put("javax.persistence.jdbc.password", c.getPassword());
-
-			  emf = Persistence.createEntityManagerFactory("objectdb://"+c.getDatabaseNode()+":"+c.getDatabasePort()+"/"+fileName, properties);
-
-			  db = emf.createEntityManager();
-    	   }
-		
-	}
 
 public boolean existQuestion(Event event, String question) {
 	System.out.println(">> DataAccess: existQuestion=> event= "+event+" question= "+question);
-	Event ev = db.find(Event.class, event.getEventNumber());
+	Event ev= getEvent(event);
 	return ev.DoesQuestionExists(question);
 	
 }
-	public void close(){
-		db.close();
-		System.out.println("DataBase closed");
-	}
-
 	
 
-	@Override
-	public void emptyDatabase() {
-		
-		File f=new File(c.getDbFilename());
-		f.delete();
-		File f2=new File(c.getDbFilename()+"$");
-		f2.delete();
-		
-	}
+public static void main(String[] args) {
+	DataAccess dataaccess= new DataAccess();
+	
+	dataaccess.initializeDB();
+	
+	//Question q=createQuestion(event,question,(float)3.2);
+	
+	
+	
+	
+	
+}
 	
 }
 
