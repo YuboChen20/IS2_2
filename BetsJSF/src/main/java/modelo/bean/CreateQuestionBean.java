@@ -34,7 +34,7 @@ public class CreateQuestionBean {
 	
 	public CreateQuestionBean() {
 
-		appFacadeInterface=new BLFacadeImplementation(new DataAccess(true));
+		appFacadeInterface=new BLFacadeImplementation(new DataAccess(false));
 		this.mensaje="";
 		
 	}

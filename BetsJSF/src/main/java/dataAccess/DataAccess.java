@@ -18,7 +18,6 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import configuration.ConfigXML;
 import configuration.UtilDate;
 import modelo.dominio.*;
 
@@ -33,7 +32,9 @@ import org.hibernate.Session;
 public class DataAccess {
 	
 	
-	public DataAccess() {}
+	public DataAccess(boolean open) {
+		if (!open) initializeDB();
+	}
 		
 
 	
@@ -186,9 +187,9 @@ public class DataAccess {
 		List<Event> res = new ArrayList<Event>();	
 		session.beginTransaction(); 
 		org.hibernate.Query query = session.createQuery("SELECT ev FROM Event ev WHERE ev.eventDate=:e");   
-		query.setParameter("e", date);
-		session.getTransaction().commit();
+		query.setParameter("e", date);	
 		List<Event> events = query.list();
+		session.getTransaction().commit();
 	 	 for (Event ev:events){
 	 	   System.out.println(ev.toString());		 
 		   res.add(ev);
@@ -233,15 +234,18 @@ public boolean existQuestion(Event event, String question) {
 	
 
 public static void main(String[] args) {
-	DataAccess dataaccess= new DataAccess();
-	
-	dataaccess.initializeDB();
-	
+	DataAccess ds= new DataAccess(false);
 	//Question q=createQuestion(event,question,(float)3.2);
 	
 	
+	   Calendar today = Calendar.getInstance();
+	   
+	   int month=today.get(Calendar.MONTH);
+	   month+=1;
+	   int year=today.get(Calendar.YEAR);
+	   if (month==12) { month=0; year+=1;}  
 	
-	
+	ds.getEvents(UtilDate.newDate(year,month,17));
 	
 }
 	

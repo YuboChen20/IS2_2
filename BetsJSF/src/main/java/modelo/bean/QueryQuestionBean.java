@@ -32,7 +32,7 @@ public class QueryQuestionBean {
 	private static List<Question> quests=new ArrayList<Question>();
 	
 	public QueryQuestionBean() {
-		 appFacadeInterface=new BLFacadeImplementation(new DataAccess(true));
+		 appFacadeInterface=new BLFacadeImplementation(new DataAccess(false));
 	}
 	
 	
@@ -77,7 +77,7 @@ public class QueryQuestionBean {
 	public void onDateSelect(SelectEvent event) {
 		 FacesContext.getCurrentInstance().addMessage("miForm: mensajes",
 		 new FacesMessage("Fecha escogida: "+event.getObject()));
-		 this.setEventos((List)appFacadeInterface.getEvents((Date)event.getObject()));
+		 this.setEventos(appFacadeInterface.getEvents((Date)event.getObject()));
 	
 	}
 	public static Event getObject(String even) {

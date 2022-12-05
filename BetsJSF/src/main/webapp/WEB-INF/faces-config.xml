@@ -7,27 +7,27 @@
     version="2.0">
 	<managed-bean>
 		<managed-bean-name>login</managed-bean-name>
-		<managed-bean-class>modelon.bean.LoginBean</managed-bean-class>
+		<managed-bean-class>modelo.bean.LoginBean</managed-bean-class>
 		<managed-bean-scope>application</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>queryQuestion</managed-bean-name>
-		<managed-bean-class>modelon.bean.QueryQuestionBean</managed-bean-class>
+		<managed-bean-class>modelo.bean.QueryQuestionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>signUp</managed-bean-name>
-		<managed-bean-class>modelon.bean.SignUpBean</managed-bean-class>
+		<managed-bean-class>modelo.bean.SignUpBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>chat</managed-bean-name>
-		<managed-bean-class>modelon.bean.ChatBean</managed-bean-class>
+		<managed-bean-class>modelo.bean.ChatBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>createQuestion</managed-bean-name>
-		<managed-bean-class>modelon.bean.CreateQuestionBean</managed-bean-class>
+		<managed-bean-class>modelo.bean.CreateQuestionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<navigation-rule>
