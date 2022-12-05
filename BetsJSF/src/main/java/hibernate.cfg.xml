@@ -11,6 +11,7 @@
   <property name="hibernate.connection.autocommit">false</property>
   <property name="hibernate.current_session_context_class">thread</property>
   <property name="hibernate.hbm2ddl.auto">update</property>
+  <property name="hibernate.connection.url">jdbc:mariadb://localhost/Bets</property>
   <mapping class="modelo.dominio.Comentario"/>
   <mapping class="modelo.dominio.Usuario"/>
   <mapping class="modelo.dominio.Event"/>
