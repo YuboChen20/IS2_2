@@ -1,4 +1,4 @@
-package modelon.dominio;
+package modelo.dominio;
 
 public class Usuario {
 	private String userName;

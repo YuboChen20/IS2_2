@@ -1,11 +1,5 @@
-package modelon.bean;
+package modelo.bean;
 
-import java.util.Locale;
-
-import businessLogic.BLFacade;
-import businessLogic.BLFacadeImplementation;
-import configuration.ConfigXML;
-import dataAccess.DataAccess;
 
 public class LoginBean {
 	private String nombre;

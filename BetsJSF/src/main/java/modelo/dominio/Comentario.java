@@ -1,7 +1,4 @@
-package modelon.dominio;
-
-import domain.Event;
-
+package modelo.dominio;
 
 public class Comentario {
 	private Integer comtNumber;

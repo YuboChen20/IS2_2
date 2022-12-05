@@ -1,4 +1,4 @@
-package modelon.bean;
+package modelo.bean;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,9 +10,10 @@ import javax.faces.event.AjaxBehaviorEvent;
 import org.primefaces.event.SelectEvent;
 
 
-import domain.*;
-import modelon.dominio.Comentario;
-import modelon.dominio.Usuario;
+import modelo.dominio.Comentario;
+import modelo.dominio.Usuario;
+import modelo.dominio.Event;
+import modelo.dominio.Question;
 import businessLogic.*;
 import configuration.UtilDate;
 import dataAccess.*;

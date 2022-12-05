@@ -1,11 +1,11 @@
-package modelon.bean;
+package modelo.bean;
 
 import java.util.ArrayList;
 
 import configuration.UtilDate;
-import domain.Event;
-import modelon.dominio.Comentario;
-import modelon.dominio.Usuario;
+import modelo.dominio.Event;
+import modelo.dominio.Comentario;
+import modelo.dominio.Usuario;
 
 public class ChatBean {
 	private String text;
