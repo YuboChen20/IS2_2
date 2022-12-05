@@ -77,9 +77,7 @@ public class QueryQuestionBean {
 	public void onDateSelect(SelectEvent event) {
 		 FacesContext.getCurrentInstance().addMessage("miForm: mensajes",
 		 new FacesMessage("Fecha escogida: "+event.getObject()));
-		 
-		 
-		 this.setEventos(appFacadeInterface.getEvents((Date)event.getObject()));
+		 this.setEventos((List)appFacadeInterface.getEvents((Date)event.getObject()));
 	
 	}
 	public static Event getObject(String even) {

@@ -1,11 +1,13 @@
 package businessLogic;
 
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
 
 
+import configuration.ConfigXML;
 import dataAccess.DataAccessInterface;
 import domain.Question;
 import domain.Event;
@@ -84,9 +86,9 @@ public class BLFacadeImplementation  implements BLFacade {
 	 * @return collection of events
 	 */
   
-	public Vector<Event> getEvents(Date date)  {
+	public List<Event> getEvents(Date date)  {
 		dbManager.open();
-		Vector<Event>  events=dbManager.getEvents(date);
+		List<Event>  events=dbManager.getEvents(date);
 		dbManager.close();
 		return events;
 	}
@@ -119,7 +121,7 @@ public class BLFacadeImplementation  implements BLFacade {
 	 * This method invokes the data access to initialize the database with some events and questions.
 	 * It is invoked only when the option "initialize" is declared in the tag dataBaseOpenMode of resources/config.xml file
 	 */	
-    
+
 	 public void initializeBD(){
     	dbManager.open();
 		dbManager.initializeDB();

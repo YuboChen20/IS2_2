@@ -1,5 +1,3 @@
-/modelon/
-/businessLogic/
-/dataAccess/
+/hibernate.cfg.xml
 /modelo/
-/exceptions/
+/dataAccess/
