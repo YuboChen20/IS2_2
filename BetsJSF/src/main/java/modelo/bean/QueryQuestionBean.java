@@ -25,11 +25,11 @@ public class QueryQuestionBean {
 	private Question quest;
 	private BLFacade appFacadeInterface;
 	private String text;
-	private ArrayList<Comentario> chat = new ArrayList<Comentario>();
 	private String ult;
 	
 	private static List<Event> eventos=new ArrayList<Event>();
 	private static List<Question> quests=new ArrayList<Question>();
+	private static List<Comentario> chat = new ArrayList<Comentario>();
 	
 	public QueryQuestionBean() {
 		 appFacadeInterface=new BLFacadeImplementation(DataAccess.getInstance());
@@ -89,6 +89,8 @@ public class QueryQuestionBean {
 
 	public void onEventSelect(SelectEvent event) {
 		this.even=(Event)event.getObject();
+		chat=appFacadeInterface.getComentarios(even);
+		this.rellenarChat(chat);
 		FacesContext.getCurrentInstance().addMessage("miForm:escogido",
 		 new FacesMessage("Evento escogido : Nº"+even.getEventNumber()+"["+even.getDescription()+"]"));
 		this.setQuests(even.getQuestions());
@@ -104,11 +106,11 @@ public class QueryQuestionBean {
 	}
 	
 	
-	public ArrayList<Comentario> getChat() {
+	public List<Comentario> getChat() {
 		return chat;
 	}
 
-	public void setChat(ArrayList<Comentario> chat) {
+	public void setChat(List<Comentario> chat) {
 		this.chat = chat;
 	}
 
@@ -122,22 +124,30 @@ public class QueryQuestionBean {
 	}
 
 	public void sendComment() {
-		System.out.println("fgd");
-		System.out.println(even);
-		Usuario user = new Usuario("ChicoGuapo", "123", "123456789112", "pepe@pepa.pig", false);
-		Event ev1=new Event(1, "Atlético-Athletic", UtilDate.newDate(2001,12,17));
-		int num = chat.size();
-		Comentario com = new Comentario(num, text,ev1,user,"Mañana");
-		this.setText("");
-		System.out.println(com);
-		chat.add(com);
+	System.out.println("fgd");
+	System.out.println(even);
+	//Usuario user = new Usuario("ChicoGuapo", "123", "123456789112", "pepe@pepa.pig", false);
+	Comentario com = new Comentario(text,even,"Mañana");
+	Comentario com1= appFacadeInterface.createComentario(com);
+	Event ev = com1.getEvento();
+	this.setText("");
+	System.out.println(com1);
+	chat=appFacadeInterface.getComentarios(ev);
+	this.rellenarChat(chat);
+	
+}
+
+public String rellenarChat(List<Comentario> comentarios) {
+	ult=null;
+	for(Comentario com:comentarios) {
 		if(ult==null) {
 			ult=com.toString();
 		}else {
 			ult=ult+"\n"+com.toString();
 		}
-		
 	}
+	return ult;
+}
 
 
 }

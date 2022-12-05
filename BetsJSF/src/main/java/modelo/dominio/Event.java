@@ -28,6 +28,8 @@ public class Event implements Serializable {
 	private Date eventDate;
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private List<Question> questions=new ArrayList<Question>();
+	@OneToMany(cascade=CascadeType.PERSIST, fetch=FetchType.LAZY) 
+	private List<Comentario> comentarios=new ArrayList<Comentario>();
 
 	public List<Question> getQuestions() {
 		return questions;
@@ -35,6 +37,14 @@ public class Event implements Serializable {
 
 	public void setQuestions(List<Question> questions) {
 		this.questions = questions;
+	}
+	
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
 	}
 
 	public Event() {
@@ -92,6 +102,11 @@ public class Event implements Serializable {
         Question q=new Question(question,betMinimum, this);
         questions.add(q);
         return q;
+	}
+	
+	public Comentario addComentario(Comentario com)  {
+        comentarios.add(com);
+        return com;
 	}
 
 	

@@ -7,6 +7,7 @@ import java.util.List;
 
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
+import modelo.dominio.Comentario;
 import modelo.dominio.Event;
 import modelo.dominio.Question;
 import modelo.dominio.Usuario;
@@ -58,5 +59,8 @@ public interface BLFacade  {
 	
 	public Usuario AddUser(String name,String pass,String card,String correo);
 
+	public Comentario createComentario(Comentario com);
 	
+	
+	public List<Comentario> getComentarios(Event evento);
 }

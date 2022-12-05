@@ -8,6 +8,7 @@ import java.util.Vector;
 import dataAccess.DataAccess;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
+import modelo.dominio.Comentario;
 import modelo.dominio.Event;
 import modelo.dominio.Question;
 import modelo.dominio.Usuario;
@@ -87,6 +88,28 @@ public class BLFacadeImplementation  implements BLFacade {
 	public Usuario AddUser(String name,String pass,String card,String correo) {
 		return this.dbManager.AddUser(name, pass, card, correo);
 	}
+	
+	public Comentario createComentario(Comentario com){
+		   
+	    //The minimum bed must be greater than 0
+		Comentario coment=null;
+		
+	    
+		//if(new Date().compareTo(event.getEventDate())>0)
+			//throw new EventFinished(ResourceBundle.getBundle("Etiquetas").getString("ErrorEventHasFinished"));
+				
+		
+		 coment=dbManager.createComentario(com);		
+
+		
+		return coment;
+ };
+ 
+ public List<Comentario> getComentarios(Event evento){
+	 List<Comentario> lista = null;
+	 lista=dbManager.getComentarios(evento);
+	 return lista;
+ }
 
 	/**
 	 * This method invokes the data access to initialize the database with some events and questions.

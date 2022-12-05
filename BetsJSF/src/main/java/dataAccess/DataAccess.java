@@ -268,6 +268,35 @@ public Usuario AddUser(String name,String pass,String card,String correo) {
     return u;
 }
 
+public Comentario createComentario(Comentario com) {
+	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	System.out.println(">> DataAccess: createQuestion=> event= "+com.getEvento()+" comentario= "+com);
+	System.out.println(session+" "+com.getEvento());
+	
+		session.beginTransaction(); 
+		Event ev= getEvent(com.getEvento());
+		ev.addComentario(com);
+			
+		//if (ev.DoesQuestionExists(question)) throw new QuestionAlreadyExist(ResourceBundle.getBundle("Etiquetas").getString("ErrorQueryAlreadyExist"));
+		
+		//Question q = ev.addQuestion(question, betMinimum);
+		//db.persist(q);
+		session.save(ev); // db.persist(q) not required when CascadeType.PERSIST is added in questions property of Event class
+		session.save(com);		// @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+		session.getTransaction().commit();
+		return com;
+	
+}
+
+public List<Comentario> getComentarios(Event evento){
+	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	session.beginTransaction(); 
+	org.hibernate.Query q = session.createQuery("from Comentario c where c.evento=:ev");
+    q.setParameter("ev", evento);
+    List<Comentario> result=q.list();;
+    return result;
+}
+
 
 public static void main(String[] args) {
 	DataAccess ds= DataAccess.getInstance();
