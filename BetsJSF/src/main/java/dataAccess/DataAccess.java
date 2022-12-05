@@ -31,11 +31,16 @@ import org.hibernate.Session;
  */
 public class DataAccess {
 	
+	private static DataAccess instance;
 	
-	public DataAccess(boolean open) {
-		if (!open) initializeDB();
+	private DataAccess() {
+		 initializeDB();
 	}
-		
+	
+	public static DataAccess getInstance() {
+		if (instance==null) instance=  new DataAccess();
+		return instance;
+	}
 
 	
 	
@@ -98,6 +103,15 @@ public class DataAccess {
 			
 			
 			
+			Usuario us = new Usuario("Yubo","123",null,null,true);
+			Usuario us2 = new Usuario("Silvia","123",null,null,true);
+			Usuario us3 = new Usuario("Carlos","123",null,null,true);
+			Usuario us4 = new Usuario("User","123","123456789012","usuariomasguapo@gmail.com",false);
+			
+			session.persist(us);
+			session.persist(us2);
+			session.persist(us3);
+			session.persist(us4);
 			
 			session.save(q1);
 			session.save(q2);
@@ -153,7 +167,7 @@ public class DataAccess {
 			session.beginTransaction(); 
 			Event ev= getEvent(event);
 				
-			if (ev.DoesQuestionExists(question)) throw new QuestionAlreadyExist(ResourceBundle.getBundle("Etiquetas").getString("ErrorQueryAlreadyExist"));
+			if (ev.DoesQuestionExists(question)) throw new QuestionAlreadyExist();
 			
 			Question q = ev.addQuestion(question, betMinimum);
 			//db.persist(q);
@@ -230,23 +244,38 @@ public boolean existQuestion(Event event, String question) {
 	return ev.DoesQuestionExists(question);
 	
 }
-	
 
-public static void main(String[] args) {
-	DataAccess ds= new DataAccess(false);
-	//Question q=createQuestion(event,question,(float)3.2);
-	
-	
-	   Calendar today = Calendar.getInstance();
-	   
-	   int month=today.get(Calendar.MONTH);
-	   month+=1;
-	   int year=today.get(Calendar.YEAR);
-	   if (month==12) { month=0; year+=1;}  
-	
-	ds.getEvents(UtilDate.newDate(year,month,17));
-	
+public Usuario getUser(String name) {
+	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	session.beginTransaction(); 
+	org.hibernate.Query q = session.createQuery("from Usuario e where e.userName=:nn");
+    q.setParameter("nn", name);
+    List<Usuario> result=q.list();
+    if (result.isEmpty()) return null;
+    Usuario u=result.get(0);
+    session.getTransaction().commit();
+    return u;
 }
 	
+public Usuario AddUser(String name,String pass,String card,String correo) {
+	Usuario u2 = this.getUser(name);
+	if(u2!=null) return null;
+	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	session.beginTransaction(); 
+	Usuario u = new Usuario(name,pass,card,correo,false);
+	session.save(u);
+    session.getTransaction().commit();
+    return u;
+}
+
+
+public static void main(String[] args) {
+	DataAccess ds= DataAccess.getInstance();
+	//Question q=createQuestion(event,question,(float)3.2);
+	
+	ds.getUser("Hola").toString();
+}
+
+
 }
 

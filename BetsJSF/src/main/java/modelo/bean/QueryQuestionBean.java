@@ -32,7 +32,7 @@ public class QueryQuestionBean {
 	private static List<Question> quests=new ArrayList<Question>();
 	
 	public QueryQuestionBean() {
-		 appFacadeInterface=new BLFacadeImplementation(new DataAccess(false));
+		 appFacadeInterface=new BLFacadeImplementation(DataAccess.getInstance());
 	}
 	
 	

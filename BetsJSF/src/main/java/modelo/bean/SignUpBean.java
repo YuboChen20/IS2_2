@@ -2,19 +2,24 @@ package modelo.bean;
 
 import java.util.ArrayList;
 
+import businessLogic.BLFacade;
+import businessLogic.BLFacadeImplementation;
+import dataAccess.DataAccess;
+import modelo.dominio.Usuario;
+
 
 public class SignUpBean {
 	private String nombre;
 	private String password;
 	private String numTarjeta;
 	private String correoElec;
-	private ArrayList<String> lista = new ArrayList<String>();
-	
-	
+	private BLFacade appFacadeInterface;
+	private String mg;
 	
 	public SignUpBean() {
-		lista.add("Admin");
+		appFacadeInterface=new BLFacadeImplementation(DataAccess.getInstance());
 	}
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -39,24 +44,21 @@ public class SignUpBean {
 	public void setCorreoElec(String correoElec) {
 		this.correoElec = correoElec;
 	}
-	
-	public ArrayList<String> getLista() {
-		return lista;
+
+
+	public String getMg() {
+		return mg;
 	}
-	public void setLista(ArrayList<String> lista) {
-		this.lista = lista;
+
+	public void setMg(String mg) {
+		this.mg = mg;
 	}
+
 	public String comprobar() {
-		if(!lista.isEmpty()) {
-			if(!lista.contains(nombre)) {
-				lista.add(nombre);
-				return "OkSignUp";
-			}else {
-				return "FailSignUp";
-			}
-		}
-		lista.add(nombre);
-		return "OkSignUp";
+		Usuario us = this.appFacadeInterface.AddUser(nombre, password, numTarjeta, correoElec);
+		if(us!=null)	return "OkSignUp";
+		this.setMg("Usuario ya existente");
+		return " ";
 	}
 	
 }

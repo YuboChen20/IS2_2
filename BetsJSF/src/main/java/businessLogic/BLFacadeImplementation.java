@@ -10,6 +10,7 @@ import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 import modelo.dominio.Event;
 import modelo.dominio.Question;
+import modelo.dominio.Usuario;
 
 /**
  * It implements the business logic as a web service.
@@ -78,7 +79,14 @@ public class BLFacadeImplementation  implements BLFacade {
 		return dates;
 	}
 	
+	public Usuario getUser(String name){
+		return this.dbManager.getUser(name);
+	}
 	
+	
+	public Usuario AddUser(String name,String pass,String card,String correo) {
+		return this.dbManager.AddUser(name, pass, card, correo);
+	}
 
 	/**
 	 * This method invokes the data access to initialize the database with some events and questions.

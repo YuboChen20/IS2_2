@@ -1,6 +1,11 @@
 package modelo.dominio;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Usuario {
+	@Id
 	private String userName;
 	private String password;
 	private String cardCode;
@@ -9,7 +14,9 @@ public class Usuario {
 	private double dinero;
 	
 	
-	
+	public Usuario() {
+		
+	}
 	
 	public Usuario(String userName, String password, String cardCode, String correo, boolean admin) {
 		super();

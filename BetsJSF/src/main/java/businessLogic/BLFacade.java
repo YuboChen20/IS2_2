@@ -9,6 +9,7 @@ import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 import modelo.dominio.Event;
 import modelo.dominio.Question;
+import modelo.dominio.Usuario;
 
 /**
  * Interface that specifies the business logic.
@@ -51,6 +52,11 @@ public interface BLFacade  {
 	 * It is invoked only when the option "initialize" is declared in the tag dataBaseOpenMode of resources/config.xml file
 	 */	
 	public void initializeBD();
+
+
+	public Usuario getUser(String nombre);
+	
+	public Usuario AddUser(String name,String pass,String card,String correo);
 
 	
 }

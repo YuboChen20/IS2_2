@@ -18,7 +18,10 @@ xmlns:f="http://java.sun.com/jsf/core">
 <td>Contraseña:</td>
 <td><h:inputSecret id="pass" value="#{login.password}"></h:inputSecret></td>
 </tr>
+
 </table>
+<h:outputText id="mes" value="#{login.messag}" style="color:red"></h:outputText>
+<br></br>
 <p>
 <h:commandButton value="Aceptar" action="#{login.comprobar}"/>
 <h:commandButton value="Registrarse" action="#{login.registrarse}"/>
