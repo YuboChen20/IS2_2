@@ -150,14 +150,15 @@ public class DataAccess {
 		System.out.println(">> DataAccess: createQuestion=> event= "+event+" question= "+question+" betMinimum="+betMinimum);
 		System.out.println(session+" "+event);
 		
-			Event ev= getEvent(event);
-			
-			if (ev.DoesQuestionExists(question)) throw new QuestionAlreadyExist(ResourceBundle.getBundle("Etiquetas").getString("ErrorQueryAlreadyExist"));
 			session.beginTransaction(); 
+			Event ev= getEvent(event);
+				
+			if (ev.DoesQuestionExists(question)) throw new QuestionAlreadyExist(ResourceBundle.getBundle("Etiquetas").getString("ErrorQueryAlreadyExist"));
+			
 			Question q = ev.addQuestion(question, betMinimum);
 			//db.persist(q);
 			session.save(ev); // db.persist(q) not required when CascadeType.PERSIST is added in questions property of Event class
-							// @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+			session.save(q);		// @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 			session.getTransaction().commit();
 			return q;
 		
@@ -165,12 +166,10 @@ public class DataAccess {
 	
 	public Event getEvent(Event e) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction(); 
-		org.hibernate.Query q = session.createQuery("select * from Event e where eventNumber=:ev");
+		org.hibernate.Query q = session.createQuery("from Event e where e.eventNumber=:ev");
         q.setParameter("ev", e.getEventNumber());
         List<Event> result=q.list();
         Event ev=result.get(0);
-        session.getTransaction().commit();
         return ev;
 	}
 	
