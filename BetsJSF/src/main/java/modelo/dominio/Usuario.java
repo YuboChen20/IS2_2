@@ -13,6 +13,7 @@ public class Usuario {
 	private boolean admin;
 	private double dinero;
 	
+
 	
 	public Usuario() {
 		

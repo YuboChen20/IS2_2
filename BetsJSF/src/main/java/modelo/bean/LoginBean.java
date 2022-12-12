@@ -1,5 +1,9 @@
 package modelo.bean;
 
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import businessLogic.BLFacade;
 import businessLogic.BLFacadeImplementation;
 import dataAccess.DataAccess;
@@ -34,6 +38,10 @@ public class LoginBean {
 	}
 	public String comprobar() {
 		Usuario user = appFacadeInterface.getUser(nombre);
+		FacesContext ectx= FacesContext.getCurrentInstance();
+		HttpServletRequest request=(HttpServletRequest) ectx.getExternalContext().getRequest();
+		HttpSession httpSession = request.getSession();
+		httpSession.setAttribute("Usuario", user);
 		if(user!=null) {
 			if(user.getPassword().equals(password)) {
 				 if(user.isAdmin()){

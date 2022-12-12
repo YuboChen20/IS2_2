@@ -6,6 +6,8 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.event.SelectEvent;
 
@@ -157,6 +159,11 @@ public class QueryQuestionBean {
 
 	public void sendComment() {
 	//System.out.println(this.getUserName());
+		FacesContext ectx= FacesContext.getCurrentInstance();
+		HttpServletRequest request=(HttpServletRequest) ectx.getExternalContext().getRequest();
+		HttpSession httpSession = request.getSession();
+		Usuario user = (Usuario) httpSession.getAttribute("Usuario");
+		System.out.println(user.getUserName());
 	System.out.println(even);
 	//Usuario user = new Usuario("ChicoGuapo", "123", "123456789112", "pepe@pepa.pig", false);
 	Comentario com = new Comentario(text,even,"Mañana");
