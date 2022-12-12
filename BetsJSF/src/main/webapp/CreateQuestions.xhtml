@@ -46,9 +46,11 @@ selection="#{createQuestion.q}" border="1" rowKey="#{item.questionNumber}">
 <br/>
 <tr>
 <td>Question:</td>
-<td><h:inputText id="que" value="#{createQuestion.question}" size="36">
+<td><h:inputText id="que" value="#{createQuestion.question}" size="36" required="true">
+	<f:validateLength minimum="5"/>
 </h:inputText></td>
 </tr>
+<h:message for="que" style="color:red" />
 <br/>
 <h:outputText id="mD" value="#{createQuestion.mD}" style="color:red" />
 <br/>

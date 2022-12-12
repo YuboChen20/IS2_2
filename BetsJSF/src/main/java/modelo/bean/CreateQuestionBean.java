@@ -26,7 +26,6 @@ public class CreateQuestionBean {
 	private BLFacade appFacadeInterface;
 	private Question q;
 	private String mensaje;
-	private String mD;
 	
 	
 	private Date fecha;
@@ -37,17 +36,9 @@ public class CreateQuestionBean {
 
 		appFacadeInterface=new BLFacadeImplementation(DataAccess.getInstance());
 		this.mensaje="";
-		this.mD="";
 		
 	}
 	
-	public String getmD() {
-		return mD;
-	}
-
-	public void setmD(String mD) {
-		this.mD = mD;
-	}
 
 	public String getMensaje() {
 		return mensaje;
@@ -108,10 +99,7 @@ public class CreateQuestionBean {
 	}
 	
 	public void create() {
-		
-		if(this.question=="") {
-			this.setmD("Escriba la pregunta");
-		}
+
 		if(this.ev==null) {
 			this.setMensaje("No se ha seleccionado evento");
 		}
@@ -120,7 +108,6 @@ public class CreateQuestionBean {
 				Question q= appFacadeInterface.createQuestion(ev,question,(float)betMinimum);
 				this.questions.add(q);
 				this.setMensaje("");
-				this.setmD("");
 				this.setBetMinimum(0.0);
 				this.setQuestion("");
 			} catch (EventFinished e) {
