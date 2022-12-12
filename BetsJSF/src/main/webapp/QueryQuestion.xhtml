@@ -10,15 +10,16 @@ xmlns:p="http://primefaces.org/ui">
 <h:head><title>Aplicación JavaServer Faces</title></h:head>
 <h:body>
 <h:form id="miForm">
+
 <table>
 <tr>
 <td>Escoge una fecha:
 <p:calendar id="fecha" value="#{queryQuestion.fecha}" navigator="false" mode="inline">
 <p:ajax event="dateSelect" listener="#{queryQuestion.onDateSelect}"
-update=":miForm:mensajes :miForm:tablaPF"></p:ajax>
+update=":miForm:mensajes :miForm:tablaPF :miForm:tablaQ :miForm:escogido :miForm:escogido2"></p:ajax>
 </p:calendar>
 <p>
-<h:messages id="mensajes" style="color:blue"/>
+<h:outputText id="mensajes" style="color:blue"/>
 </p>
 
 </td>
@@ -31,7 +32,7 @@ selection="#{queryQuestion.even}" border="1" rowKey="#{item.eventNumber}">
 <p:column headerText="Código">#{item.eventNumber}</p:column>
 <p:column headerText="Eventos">#{item.description}</p:column>
 </p:dataTable>
-<h:messages id="escogido" value="#{queryQuestion.even}" style="color:blue" /></td>
+<h:outputText id="escogido" value="#{queryQuestion.even}" style="color:blue" /></td>
 
 
 

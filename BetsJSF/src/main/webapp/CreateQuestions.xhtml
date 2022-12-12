@@ -52,8 +52,6 @@ selection="#{createQuestion.q}" border="1" rowKey="#{item.questionNumber}">
 </tr>
 <h:message for="que" style="color:red" />
 <br/>
-<h:outputText id="mD" value="#{createQuestion.mD}" style="color:red" />
-<br/>
 <br/>
 <tr>
 <td>Bet Minimum:</td>
@@ -62,7 +60,7 @@ selection="#{createQuestion.q}" border="1" rowKey="#{item.questionNumber}">
 </h:inputText></td>
 </tr>
 <br/>
-<tr><h:message for="betm" style="color:red" /></tr>
+<h:message for="betm" style="color:red" />
 
 <p>
 <h:commandButton value="CREAR" action="#{createQuestion.create}"/>

@@ -26,6 +26,8 @@ public class QueryQuestionBean {
 	private BLFacade appFacadeInterface;
 	private String text;
 	private String ult;
+	private LoginBean loginSession;
+	private String userName;
 	
 	private static List<Event> eventos=new ArrayList<Event>();
 	private static List<Question> quests=new ArrayList<Question>();
@@ -36,6 +38,36 @@ public class QueryQuestionBean {
 	}
 	
 	
+	
+	
+	public LoginBean getLoginSession() {
+		return loginSession;
+	}
+
+
+
+
+	public void setLoginSession(LoginBean loginSession) {
+		this.loginSession = loginSession;
+	}
+
+
+
+
+	public String getUserName() {
+		return loginSession.getNombre();
+	}
+
+
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+
+
+
 	public Question getQuest() {
 		return quest;
 	}
@@ -124,7 +156,7 @@ public class QueryQuestionBean {
 	}
 
 	public void sendComment() {
-	System.out.println("fgd");
+	//System.out.println(this.getUserName());
 	System.out.println(even);
 	//Usuario user = new Usuario("ChicoGuapo", "123", "123456789112", "pepe@pepa.pig", false);
 	Comentario com = new Comentario(text,even,"Mañana");
