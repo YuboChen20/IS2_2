@@ -17,27 +17,28 @@ public class Comentario {
 	private String text;
 	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private Event evento;
-	//private Usuario user;
+	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	private Usuario user;
 	private String date;
 	
 	public Comentario() {}
 	
-	public Comentario(String text, Event evento, String date) {
+	/*public Comentario(String text, Event evento, String date) {
 		super();
 		//this.comtNumber = comtNumber;
 		this.text = text;
 		this.evento = evento;
 		//this.user = user;
 		this.date = date;
-	}
+	}*/
 	
-	/*public Comentario(String text, Event evento, Usuario user, String date) {
+	public Comentario(String text, Event evento, Usuario user, String date) {
 		super();
 		this.text = text;
 		this.evento = evento;
 		this.user = user;
 		this.date = date;
-	}*/
+	}
 	
 	public Integer getComtNumber() {
 		return comtNumber;
@@ -57,12 +58,12 @@ public class Comentario {
 	public void setEvento(Event evento) {
 		this.evento = evento;
 	}
-	/*public Usuario getUser() {
+	public Usuario getUser() {
 		return user;
 	}
 	public void setUser(Usuario user) {
 		this.user = user;
-	}*/
+	}
 	public String getDate() {
 		return date;
 	}
@@ -70,10 +71,10 @@ public class Comentario {
 		this.date = date;
 	}
 
-/*	@Override
+	@Override
 	public String toString() {
 		return user.getUserName()+": "+text;
-	}*/
+	}
 	
 	
 	

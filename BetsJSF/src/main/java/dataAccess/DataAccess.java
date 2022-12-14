@@ -273,16 +273,26 @@ public Comentario createComentario(Comentario com) {
 	System.out.println(">> DataAccess: createQuestion=> event= "+com.getEvento()+" comentario= "+com);
 	System.out.println(session+" "+com.getEvento());
 	
+	
+			Usuario us = getUser(com.getUser().getUserName());
+				//session.beginTransaction(); 
+			us.addComentario(com);
 		session.beginTransaction(); 
 		Event ev= getEvent(com.getEvento());
+		//session.beginTransaction(); 
 		ev.addComentario(com);
+		
+		
+		//session.beginTransaction(); 
 			
 		//if (ev.DoesQuestionExists(question)) throw new QuestionAlreadyExist(ResourceBundle.getBundle("Etiquetas").getString("ErrorQueryAlreadyExist"));
 		
 		//Question q = ev.addQuestion(question, betMinimum);
 		//db.persist(q);
-		session.save(ev); // db.persist(q) not required when CascadeType.PERSIST is added in questions property of Event class
-		session.save(com);		// @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+		// db.persist(q) not required when CascadeType.PERSIST is added in questions property of Event class
+		session.save(com);
+		session.save(us);
+		session.save(ev);
 		session.getTransaction().commit();
 		return com;
 	

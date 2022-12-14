@@ -1,7 +1,13 @@
 package modelo.dominio;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Usuario {
@@ -12,6 +18,8 @@ public class Usuario {
 	private String correo;
 	private boolean admin;
 	private double dinero;
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER) 
+	private List<Comentario> comentarios=new ArrayList<Comentario>();
 	
 
 	
@@ -31,6 +39,18 @@ public class Usuario {
 	public String getUserName() {
 		return userName;
 	}
+	public Comentario addComentario(Comentario com)  {
+        comentarios.add(com);
+        return com;
+	}
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
+	}
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
