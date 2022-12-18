@@ -103,22 +103,19 @@ public class DataAccess {
 			
 			
 			
-			Usuario us = new Usuario("Yubo","123",null,null,true);
+			Usuario us = new Usuario("Yub","123",null,null,true);
 			Usuario us2 = new Usuario("Silvia","123",null,null,true);
 			Usuario us3 = new Usuario("Carlos","123",null,null,true);
 			Usuario us4 = new Usuario("User","123","123456789012","usuariomasguapo@gmail.com",false);
 			
+			
+			Comentario c1 = new Comentario("Hola",ev1,us4,"Dd");
 			session.persist(us);
 			session.persist(us2);
 			session.persist(us3);
 			session.persist(us4);
 			
-			session.save(q1);
-			session.save(q2);
-			session.save(q3);
-			session.save(q4);
-			session.save(q5);
-			session.save(q6);
+			
 	
 	        
 			session.save(ev1);
@@ -141,6 +138,14 @@ public class DataAccess {
 			session.save(ev18);
 			session.save(ev19);
 			session.save(ev20);			
+			
+			session.save(q1);
+			session.save(q2);
+			session.save(q3);
+			session.save(q4);
+			session.save(q5);
+			session.save(q6);
+			session.save(c1);
 			
 			session.getTransaction().commit();
 			System.out.println("Db initialized");
@@ -270,29 +275,29 @@ public Usuario AddUser(String name,String pass,String card,String correo) {
 
 public Comentario createComentario(Comentario com) {
 	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-	System.out.println(">> DataAccess: createQuestion=> event= "+com.getEvento()+" comentario= "+com);
-	System.out.println(session+" "+com.getEvento());
+	System.out.println(">> DataAccess: createQuestion=> event= "+com.getEvent()+" comentario= "+com);
+	System.out.println(session+" "+com.getEvent());
 	
-	
-			Usuario us = getUser(com.getUser().getUserName());
-				//session.beginTransaction(); 
-			us.addComentario(com);
-		session.beginTransaction(); 
-		Event ev= getEvent(com.getEvento());
+		session.beginTransaction();
+		org.hibernate.Query q = session.createQuery("from Usuario e where e.userName=:nn");
+	   
+		q.setParameter("nn", com.getUsuario().getUserName());
+	    List<Usuario> result=q.list();
+	    if (result.isEmpty()) return null;
+	    Usuario us=result.get(0);
+				
+	    System.out.println(us.getUserName()+"-----------------");
+	    us.addComentario(com);
+		 
+		Event ev= getEvent(com.getEvent());
 		//session.beginTransaction(); 
 		ev.addComentario(com);
 		
 		
-		//session.beginTransaction(); 
-			
-		//if (ev.DoesQuestionExists(question)) throw new QuestionAlreadyExist(ResourceBundle.getBundle("Etiquetas").getString("ErrorQueryAlreadyExist"));
 		
-		//Question q = ev.addQuestion(question, betMinimum);
-		//db.persist(q);
-		// db.persist(q) not required when CascadeType.PERSIST is added in questions property of Event class
-		session.save(com);
 		session.save(us);
 		session.save(ev);
+		session.save(com);
 		session.getTransaction().commit();
 		return com;
 	
@@ -301,9 +306,11 @@ public Comentario createComentario(Comentario com) {
 public List<Comentario> getComentarios(Event evento){
 	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 	session.beginTransaction(); 
-	org.hibernate.Query q = session.createQuery("from Comentario c where c.evento=:ev");
-    q.setParameter("ev", evento);
-    List<Comentario> result=q.list();;
+	System.out.println(evento.getEventNumber().toString());
+	org.hibernate.Query q = session.createQuery("from Comentario where event_eventNumber=:ev");
+    q.setParameter("ev", evento.getEventNumber());
+    List<Comentario> result=q.list();
+    session.getTransaction().commit();
     return result;
 }
 

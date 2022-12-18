@@ -18,7 +18,7 @@ public class Usuario {
 	private String correo;
 	private boolean admin;
 	private double dinero;
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER) 
+	@OneToMany(targetEntity=Comentario.class,mappedBy="usuario",cascade=CascadeType.ALL, fetch=FetchType.EAGER) 
 	private List<Comentario> comentarios=new ArrayList<Comentario>();
 	
 

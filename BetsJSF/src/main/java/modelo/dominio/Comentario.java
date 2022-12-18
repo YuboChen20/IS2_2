@@ -15,10 +15,10 @@ public class Comentario {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer comtNumber;
 	private String text;
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-	private Event evento;
-	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	private Usuario user;
+	@ManyToOne(targetEntity=Event.class,fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
+	private Event event;
+	@ManyToOne(targetEntity=Usuario.class,fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	private Usuario usuario;
 	private String date;
 	
 	public Comentario() {}
@@ -33,10 +33,10 @@ public class Comentario {
 	}*/
 	
 	public Comentario(String text, Event evento, Usuario user, String date) {
-		super();
+		
 		this.text = text;
-		this.evento = evento;
-		this.user = user;
+		this.event = evento;
+		this.usuario = user;
 		this.date = date;
 	}
 	
@@ -52,17 +52,17 @@ public class Comentario {
 	public void setText(String text) {
 		this.text = text;
 	}
-	public Event getEvento() {
-		return evento;
+	public Event getEvent() {
+		return event;
 	}
-	public void setEvento(Event evento) {
-		this.evento = evento;
+	public void setEvent(Event evento) {
+		this.event = evento;
 	}
-	public Usuario getUser() {
-		return user;
+	public Usuario getUsuario() {
+		return usuario;
 	}
-	public void setUser(Usuario user) {
-		this.user = user;
+	public void setUsuario(Usuario user) {
+		this.usuario = user;
 	}
 	public String getDate() {
 		return date;
@@ -73,7 +73,7 @@ public class Comentario {
 
 	@Override
 	public String toString() {
-		return user.getUserName()+": "+text;
+		return usuario.getUserName()+": "+text;
 	}
 	
 	

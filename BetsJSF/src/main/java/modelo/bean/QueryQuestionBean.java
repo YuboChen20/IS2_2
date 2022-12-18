@@ -124,6 +124,7 @@ public class QueryQuestionBean {
 	public void onEventSelect(SelectEvent event) {
 		this.even=(Event)event.getObject();
 		chat=appFacadeInterface.getComentarios(even);
+		System.out.println(chat.isEmpty());
 		this.rellenarChat(chat);
 		FacesContext.getCurrentInstance().addMessage("miForm:escogido",
 		 new FacesMessage("Evento escogido : Nº"+even.getEventNumber()+"["+even.getDescription()+"]"));
@@ -168,7 +169,7 @@ public class QueryQuestionBean {
 	//Usuario user = new Usuario("ChicoGuapo", "123", "123456789112", "pepe@pepa.pig", false);
 	Comentario com = new Comentario(text,even, user, "Mañana");
 	Comentario com1= appFacadeInterface.createComentario(com);
-	Event ev = com1.getEvento();
+	Event ev = com1.getEvent();
 	this.setText("");
 	System.out.println(com1);
 	chat=appFacadeInterface.getComentarios(ev);
@@ -177,12 +178,13 @@ public class QueryQuestionBean {
 }
 
 public String rellenarChat(List<Comentario> comentarios) {
-	ult=null;
+	this.setUlt("");
 	for(Comentario com:comentarios) {
-		if(ult==null) {
-			ult=com.toString();
+		if(this.getUlt().compareTo("")==0) {
+			this.setUlt(com.toString());
 		}else {
-			ult=ult+"\n"+com.toString();
+			this.setUlt(this.getUlt()+"\n"+com.toString());
+			
 		}
 	}
 	return ult;

@@ -49,7 +49,7 @@ public class ChatBean {
 		this.ult = ult;
 	}
 
-	public void sendComment() {
+	/*public void sendComment() {
 		System.out.println("fgd");
 		System.out.println(ev);
 		Usuario user = new Usuario("ChicoGuapo", "123", "123456789112", "pepe@pepa.pig", false);
@@ -65,7 +65,7 @@ public class ChatBean {
 			ult=ult+"\n"+com.toString();
 		}
 		
-	}
+	}*/
 
 	
 }

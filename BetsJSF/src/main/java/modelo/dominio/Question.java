@@ -15,7 +15,7 @@ public class Question implements Serializable {
 	private String question; 
 	private float betMinimum;
 	private String result;  
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(targetEntity=Event.class,fetch=FetchType.EAGER)
 	private Event event;
 
 	public Question(){
@@ -34,8 +34,7 @@ public class Question implements Serializable {
 		super();
 		this.question = query;
 		this.betMinimum=betMinimum;
-
-		//this.event = event;
+		this.event = event;
 	}
 
 	/**
