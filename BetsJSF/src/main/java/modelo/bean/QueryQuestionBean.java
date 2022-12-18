@@ -167,7 +167,7 @@ public class QueryQuestionBean {
 		System.out.println(user.getUserName());
 	System.out.println(even);
 	//Usuario user = new Usuario("ChicoGuapo", "123", "123456789112", "pepe@pepa.pig", false);
-	Comentario com = new Comentario(text,even, user, "Mañana");
+	Comentario com = new Comentario(text,even, user);
 	Comentario com1= appFacadeInterface.createComentario(com);
 	Event ev = com1.getEvent();
 	this.setText("");

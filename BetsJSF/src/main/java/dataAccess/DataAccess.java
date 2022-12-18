@@ -109,7 +109,7 @@ public class DataAccess {
 			Usuario us4 = new Usuario("User","123","123456789012","usuariomasguapo@gmail.com",false);
 			
 			
-			Comentario c1 = new Comentario("Hola",ev1,us4,"Dd");
+			Comentario c1 = new Comentario("Hola",ev1,us4);
 			session.persist(us);
 			session.persist(us2);
 			session.persist(us3);

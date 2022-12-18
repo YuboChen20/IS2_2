@@ -17,10 +17,9 @@ public class Comentario {
 	private String text;
 	@ManyToOne(targetEntity=Event.class,fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
 	private Event event;
-	@ManyToOne(targetEntity=Usuario.class,fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToOne(targetEntity=Usuario.class,fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private Usuario usuario;
-	private String date;
-	
+
 	public Comentario() {}
 	
 	/*public Comentario(String text, Event evento, String date) {
@@ -32,12 +31,12 @@ public class Comentario {
 		this.date = date;
 	}*/
 	
-	public Comentario(String text, Event evento, Usuario user, String date) {
+	public Comentario(String text, Event evento, Usuario user) {
 		
 		this.text = text;
 		this.event = evento;
 		this.usuario = user;
-		this.date = date;
+
 	}
 	
 	public Integer getComtNumber() {
@@ -64,12 +63,7 @@ public class Comentario {
 	public void setUsuario(Usuario user) {
 		this.usuario = user;
 	}
-	public String getDate() {
-		return date;
-	}
-	public void setDate(String date) {
-		this.date = date;
-	}
+
 
 	@Override
 	public String toString() {
