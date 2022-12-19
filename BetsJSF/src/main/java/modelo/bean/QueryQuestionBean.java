@@ -109,8 +109,9 @@ public class QueryQuestionBean {
 		this.fecha = fecha; 
 	}
 	public void onDateSelect(SelectEvent event) {
-		 FacesContext.getCurrentInstance().addMessage("miForm: mensajes",
-		 new FacesMessage("Fecha escogida: "+event.getObject()));
+		this.even=null;
+		this.quests=null;
+		 
 		 this.setEventos(appFacadeInterface.getEvents((Date)event.getObject()));
 	
 	}
