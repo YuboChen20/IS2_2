@@ -24,29 +24,30 @@ update=":miForm:mensajes :miForm:tablaPF :miForm:tablaQ :miForm:escogido :miForm
 
 </td>
 
-<td><p:dataTable id="tablaPF" value="#{queryQuestion.eventos}" var="item" selectionMode="single"
+<td><p:dataTable id="tablaPF" scrollable="true" scrollHeight="165" value="#{queryQuestion.eventos}" var="item" selectionMode="single"
 selection="#{queryQuestion.even}" border="1" rowKey="#{item.eventNumber}">
 <p:ajax event="rowSelect" listener="#{queryQuestion.onEventSelect}"
  update=":miForm:escogido :miForm:tablaQ :miForm:comfield" ></p:ajax>
 <f:facet name="header">Selecione un evento:</f:facet>
-<p:column headerText="Código">#{item.eventNumber}</p:column>
+<p:column width="120" headerText="Código">#{item.eventNumber}</p:column>
 <p:column headerText="Eventos">#{item.description}</p:column>
 </p:dataTable>
-<h:outputText id="escogido" value="#{queryQuestion.even}" style="color:blue" /></td>
+</td>
 
 
 
-<td><p:dataTable id="tablaQ" value="#{queryQuestion.quests}" var="item" selectionMode="single"
+<td><p:dataTable id="tablaQ" scrollable="true" scrollHeight="165" value="#{queryQuestion.quests}" var="item" selectionMode="single"
 selection="#{queryQuestion.quest}" border="1" rowKey="#{item.questionNumber}">
 <f:facet name="header">Selecione una apuesta:</f:facet>
-<p:column headerText="Código">#{item.questionNumber}</p:column>
+<p:column width="120" headerText="Código">#{item.questionNumber}</p:column>
 <p:column headerText="Apuestas">#{item.question}</p:column>
 </p:dataTable></td>
 <td><h:outputText id="escogido2" value="#{queryQuestion.quest}" style="color:red" /></td>
 </tr> 
 
 </table>
-
+<h>Evento escogido: </h><h:outputText id="escogido" value="#{queryQuestion.even}" style="color:blue" />
+<br/>
 <h:inputTextarea id = "comfield" cols="70" rows="10" readonly="true" value='#{queryQuestion.ult}'/>
 	<br/>
 	<h3>Tu Comentario</h3>   Tamaño de Comentario: <h:outputText id="display" class="block" /><p>     </p>

@@ -7,10 +7,10 @@ xmlns:f="http://java.sun.com/jsf/core"
 xmlns:p="http://primefaces.org/ui">
 <ui:composition>
 <f:view>
-<h:head><title>Aplicación JavaServer Faces</title></h:head>
+<h:head><title>Crear Pregunta</title></h:head>
 <h:body>
 <h:form id="miForm">
-
+<h1>Crear pregunta</h1>
 <table>
 <tr>
 
@@ -19,19 +19,19 @@ xmlns:p="http://primefaces.org/ui">
 update= ":miForm:m :miForm:escogido :miForm:tablaPF :miForm:tablaQuest"></p:ajax>
 </p:calendar></td>
 
-<td><p:dataTable id="tablaPF" value="#{createQuestion.eventos}" var="item" selectionMode="single"
+<td><p:dataTable id="tablaPF" scrollable="true" scrollHeight="167" value="#{createQuestion.eventos}" var="item" selectionMode="single"
 selection="#{createQuestion.ev}" border="1" rowKey="#{item.eventNumber}">
 <p:ajax event="rowSelect" listener="#{createQuestion.onEventSelect}"
 update= ":miForm:escogido :miForm:tablaQuest"></p:ajax>
 <f:facet name="header">Eventos:</f:facet>
-<p:column headerText="Código">#{item.eventNumber}</p:column>
+<p:column width="120" headerText="Código">#{item.eventNumber}</p:column>
 <p:column headerText="Descripción">#{item.description}</p:column>
 </p:dataTable></td>
 
-<td><p:dataTable id="tablaQuest" value="#{createQuestion.questions}" var="item" selectionMode="single"
+<td><p:dataTable id="tablaQuest"  scrollable="true" scrollHeight="167" value="#{createQuestion.questions}" var="item" selectionMode="single"
 selection="#{createQuestion.q}" border="1" rowKey="#{item.questionNumber}">
 <f:facet name="header">Questions:</f:facet>
-<p:column headerText="Bet Minimum">#{item.betMinimum}</p:column>
+<p:column width="120" headerText="Bet Minimum">#{item.betMinimum}</p:column>
 <p:column headerText="Descripción">#{item.question}</p:column>
 </p:dataTable></td>
 
