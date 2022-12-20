@@ -7,10 +7,17 @@ xmlns:f="http://java.sun.com/jsf/core"
 xmlns:p="http://primefaces.org/ui">
 <ui:composition>
 <f:view>
-<h:head><title>Aplicación JavaServer Faces</title></h:head>
+<h:head>
+	<title>Usuario</title>
+	<h:outputStylesheet library="css" name="main.css" />
+</h:head>
 <h:body>
-<h:form id="miForm">
 
+<h:form><h:commandButton style="width:150px" value="Cerrar Sesión" action="#{queryQuestion.salir}"/></h:form>
+<h:form id="miForm"  style="text-align:left">
+<br/>
+<br/>
+<br/>
 <table>
 <tr>
 <td>Escoge una fecha:
@@ -24,37 +31,46 @@ update=":miForm:mensajes :miForm:tablaPF :miForm:tablaQ :miForm:escogido :miForm
 
 </td>
 
-<td><p:dataTable id="tablaPF" scrollable="true" scrollHeight="165" value="#{queryQuestion.eventos}" var="item" selectionMode="single"
+<td><p:dataTable id="tablaPF" scrollable="true" scrollHeight="165" style="width:450px" value="#{queryQuestion.eventos}" var="item" selectionMode="single"
 selection="#{queryQuestion.even}" border="1" rowKey="#{item.eventNumber}">
 <p:ajax event="rowSelect" listener="#{queryQuestion.onEventSelect}"
- update=":miForm:escogido :miForm:tablaQ :miForm:comfield" ></p:ajax>
-<f:facet name="header">Selecione un evento:</f:facet>
-<p:column width="120" headerText="Código">#{item.eventNumber}</p:column>
+ update=":miForm:escogido :miForm:tablaQ :miForm:comfield :miForm:mensaje" ></p:ajax>
+<f:facet name="header">Seleccione un evento</f:facet>
+<p:column width="70" style="text-align:center" headerText="Código">#{item.eventNumber}</p:column>
 <p:column headerText="Eventos">#{item.description}</p:column>
 </p:dataTable>
 </td>
 
 
 
-<td><p:dataTable id="tablaQ" scrollable="true" scrollHeight="165" value="#{queryQuestion.quests}" var="item" selectionMode="single"
+<td><p:dataTable id="tablaQ" scrollable="true" scrollHeight="165" style="width:450px" value="#{queryQuestion.quests}" var="item" selectionMode="single"
 selection="#{queryQuestion.quest}" border="1" rowKey="#{item.questionNumber}">
-<f:facet name="header">Selecione una apuesta:</f:facet>
-<p:column width="120" headerText="Código">#{item.questionNumber}</p:column>
-<p:column headerText="Apuestas">#{item.question}</p:column>
+<f:facet name="header">Seleccione una apuesta</f:facet>
+<p:column width="70" style="text-align:center" headerText="Código">#{item.questionNumber}</p:column>
+<p:column width="70" style="text-align:center" headerText="Mínimo €">#{item.betMinimum}</p:column>
+<p:column headerText="Descripción">#{item.question}</p:column>
 </p:dataTable></td>
 <td><h:outputText id="escogido2" value="#{queryQuestion.quest}" style="color:red" /></td>
 </tr> 
 
 </table>
-<h>Evento escogido: </h><h:outputText id="escogido" value="#{queryQuestion.even}" style="color:blue" />
+
+<h style="font-weight:bold; font-size:19px">Chat de Evento </h><h:outputText id="escogido" value="#{queryQuestion.even.description}" />
 <br/>
-<h:inputTextarea id = "comfield" cols="70" rows="10" readonly="true" value='#{queryQuestion.ult}'/>
-	<br/>
-	<h3>Tu Comentario</h3>   Tamaño de Comentario: <h:outputText id="display" class="block" /><p>     </p>
-	<p:inputTextarea id="comentarioTextField" rows="3" cols="90" maxlength="180" counter="display" counterTemplate="{0} caracteres restantes." autoResize="false" value="#{queryQuestion.text}"/>
-	<br/>
-	<br/>
-	<h:commandButton value="Enviar" action="#{queryQuestion.sendComment}"/>
+<h:inputTextarea id = "comfield" cols="90" rows="10" readonly="true" value='#{queryQuestion.ult}'/>
+<br/>
+
+<h style="font-weight:bold; font-size:15px">Tu Comentario </h> 
+<p:inputTextarea id="comentarioTextField" rows="1" cols="67" maxlength="180" counter="display" counterTemplate="{0} caracteres restantes." autoResize="false" value="#{queryQuestion.text}" required="true">
+<f:validateLength minimum="1"/>
+</p:inputTextarea>
+<h:commandButton  value="Enviar"  action="#{queryQuestion.sendComment}"/>
+<br/>
+Tamaño de Comentario: <h:outputText id="display" class="block" /><p>     </p>
+
+<h:message for="comentarioTextField" style="color:red" />
+
+<h:outputText id="mensaje" value="#{queryQuestion.mensaje}" style="color:red" />
 </h:form> 
 
 </h:body>

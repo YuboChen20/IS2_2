@@ -44,6 +44,7 @@ public class LoginBean {
 		httpSession.setAttribute("Usuario", user);
 		if(user!=null) {
 			if(user.getPassword().equals(password)) {
+				this.vaciar();
 				 if(user.isAdmin()){
 					 return "okAdmin";
 				 }
@@ -65,8 +66,15 @@ public class LoginBean {
 		this.appFacadeInterface = appFacadeInterface;
 	}
 	public String registrarse() {
+		this.vaciar();
 		return "SignUpOk";
-	} 
+	}
+	
+	public void vaciar() {
+		this.setNombre("");
+		this.setPassword("");
+		this.setMessag("");
+	}
   
   
 }

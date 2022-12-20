@@ -7,10 +7,14 @@ xmlns:f="http://java.sun.com/jsf/core"
 xmlns:p="http://primefaces.org/ui">
 <ui:composition>
 <f:view>
-<h:head><title>Crear Pregunta</title></h:head>
+<h:head>
+	<title>Crear Pregunta</title>
+	<h:outputStylesheet library="css" name="main.css" />
+</h:head>
 <h:body>
-<h:form id="miForm">
-<h1>Crear pregunta</h1>
+<h:form><h:commandButton style="width:150px" value="Cerrar Sesión" action="#{createQuestion.salir}"/></h:form>
+<h:form id="miForm"  style="text-align:left">
+<h2 style="text-align:center">Panel administrador</h2>
 <table>
 <tr>
 
@@ -19,52 +23,57 @@ xmlns:p="http://primefaces.org/ui">
 update= ":miForm:m :miForm:escogido :miForm:tablaPF :miForm:tablaQuest"></p:ajax>
 </p:calendar></td>
 
-<td><p:dataTable id="tablaPF" scrollable="true" scrollHeight="167" value="#{createQuestion.eventos}" var="item" selectionMode="single"
+<td><p:dataTable id="tablaPF" scrollable="true" scrollHeight="167" style="width:450px" value="#{createQuestion.eventos}" var="item" selectionMode="single"
 selection="#{createQuestion.ev}" border="1" rowKey="#{item.eventNumber}">
 <p:ajax event="rowSelect" listener="#{createQuestion.onEventSelect}"
 update= ":miForm:escogido :miForm:tablaQuest"></p:ajax>
-<f:facet name="header">Eventos:</f:facet>
-<p:column width="120" headerText="Código">#{item.eventNumber}</p:column>
+<f:facet name="header" >Eventos</f:facet>
+<p:column width="70" style="text-align:center" headerText="Código">#{item.eventNumber}</p:column>
 <p:column headerText="Descripción">#{item.description}</p:column>
 </p:dataTable></td>
 
-<td><p:dataTable id="tablaQuest"  scrollable="true" scrollHeight="167" value="#{createQuestion.questions}" var="item" selectionMode="single"
+<td><p:dataTable id="tablaQuest"  scrollable="true" scrollHeight="167" style="width:450px" value="#{createQuestion.questions}" var="item" selectionMode="single"
 selection="#{createQuestion.q}" border="1" rowKey="#{item.questionNumber}">
-<f:facet name="header">Questions:</f:facet>
-<p:column width="120" headerText="Bet Minimum">#{item.betMinimum}</p:column>
+<f:facet name="header">Questions</f:facet>
+<p:column width="70" style="text-align:center" headerText="Código">#{item.questionNumber}</p:column>
+<p:column width="70" style="text-align:center" headerText="Mínimo €">#{item.betMinimum}</p:column>
 <p:column headerText="Descripción">#{item.question}</p:column>
 </p:dataTable></td>
-
 </tr>
 </table>
 
-<br/>
-<h:outputText id="m" value="#{createQuestion.fecha}" style="color:blue" />
-<br/>
-<h:outputText id="escogido" value="#{createQuestion.ev}" style="color:blue" />
-<br/>
+<tr>
+<td>Fecha escogida: </td>
+<td><h:outputText id="m" value="#{createQuestion.fecha}" style="color:blue" /></td>
+</tr>
 <br/>
 <tr>
-<td>Question:</td>
+<td>Evento escogido: </td>
+<td><h:outputText id="escogido" value="#{createQuestion.ev}" style="color:blue" /></td>
+</tr>
+
+<br/>
+
+<h3>Crear Pregunta</h3>
+<tr>
+<td>Descripción:</td>
 <td><h:inputText id="que" value="#{createQuestion.question}" size="36" required="true">
-	<f:validateLength minimum="5"/>
+	<f:validateLength minimum="3"/>
 </h:inputText></td>
 </tr>
 <h:message for="que" style="color:red" />
 <br/>
 <br/>
 <tr>
-<td>Bet Minimum:</td>
+<td>Apuesta mínima:</td>
 <td><h:inputText id="betm" value="#{createQuestion.betMinimum}" size="4">
 	<f:validateDoubleRange minimum="1.0" maximum="5000.00"/>
 </h:inputText></td>
 </tr>
-<br/>
 <h:message for="betm" style="color:red" />
-
-<p>
+<br/>
 <h:commandButton value="CREAR" action="#{createQuestion.create}"/>
-</p> 
+
 <h:outputText id="mensaje" value="#{createQuestion.mensaje}" style="color:red" />
 
 </h:form>

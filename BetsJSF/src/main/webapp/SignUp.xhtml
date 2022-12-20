@@ -5,46 +5,61 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
 xmlns:h="http://java.sun.com/jsf/html"
 xmlns:f="http://java.sun.com/jsf/core">
 <f:view>
-<h:head><title>Aplicación JavaServer Faces</title></h:head>
+<h:head>
+	<title>Aplicación JavaServer Faces</title>
+	<h:outputStylesheet library="css" name="main.css" />
+</h:head>
 <h:body>
+
+<h:form><h:commandButton style="text-align:left" value="Atrás" action="#{signUp.salir}"/></h:form>
 <h:form>
-<h3>Por favor, introduce tu nombre, tu contraseña, tu numero de tarjeta y tu correo electronico </h3>
-<table>
-<tr>
-<td>Nombre:</td>
-<td><h:inputText id="nombre" value="#{signUp.nombre}">
+<br></br>
+<br></br>
+<br></br>
+<h3 >Por favor, introduce tu nombre, tu contraseña, tu numero de tarjeta y tu correo electronico </h3>
+
+
+<h>Nombre: </h>
+<h:inputText id="nombre" value="#{signUp.nombre}" style="width:217px">
 	<f:validateRegex pattern="^(([a-z]|[A-Z])+[0-9]?)$"/>
-</h:inputText></td>
-</tr>
-<tr>
-<td>Contraseña:</td>
-<td><h:inputSecret id="pass" value="#{signUp.password}">
+</h:inputText>
+<br/>
+<br/>
+<h>Contraseña: </h>
+<h:inputSecret id="pass" value="#{signUp.password}"  style="width:198px">
 	<f:validateLongRange minimum="100" maximum="999999"/>
-</h:inputSecret></td>
-</tr>
-<tr>
-<td>Numero de Tarjeta:</td>
-<td><h:inputText id="numTaj" value="#{signUp.numTarjeta}">
+</h:inputSecret>
+<br/>
+<br/>
+<h>Número de Tarjeta: </h>
+<h:inputText id="numTaj" value="#{signUp.numTarjeta}">
 	<f:validateLength minimum = "12" maximum = "12" />
-	</h:inputText></td>
-</tr>
-<tr>
-<td>Correo electronico:</td>
-<td><h:inputText id="correo" value="#{signUp.correoElec}">
+</h:inputText>
+<br/>
+<br/>
+<h>Correo electrónico: </h>
+<h:inputText id="correo" value="#{signUp.correoElec}">
 	<f:validateRegex pattern="^[a-zA-Z0-9_!#$%'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"/>
-	</h:inputText></td>
-</tr>
-</table>
+</h:inputText>
+
 <h:outputText id="mes" value="#{signUp.mg}" style="color:red"></h:outputText>
 <br></br>
 <p>
-<h:commandButton value="Sign Up" action="#{signUp.comprobar}"/>
+<h:commandButton value="Registrarse" action="#{signUp.comprobar}"/>
+<br/>
 <h:message for = "nombre" style = "color:red" />
+<br/>
 <h:message for = "pass" style = "color:red" />
+<br/>
 <h:message for = "numTaj" style = "color:red" />
+<br/>
 <h:message for = "correo" style = "color:red" />
-</p>
+
+</p> 
 </h:form>
+
+
+
 </h:body>
 </f:view>
 </html> 

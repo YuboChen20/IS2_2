@@ -155,6 +155,9 @@ public class CreateQuestionBean {
 		this.setQuests(ev.getQuestions());
 		}
 
+	public String salir() {
+		return "OkSalir";
+	}
 	
 }
 

@@ -30,6 +30,7 @@ public class QueryQuestionBean {
 	private String ult;
 	private LoginBean loginSession;
 	private String userName;
+	private String mensaje;
 	
 	private static List<Event> eventos=new ArrayList<Event>();
 	private static List<Question> quests=new ArrayList<Question>();
@@ -92,7 +93,6 @@ public class QueryQuestionBean {
 	}
 	public void setEven(Event even) {
 		 this.even = even;
-		 System.out.println("El tipo del evento: "+even.getEventNumber()+"/"+even.getDescription());
 	}
 	public List<Event> getEventos() {
 		 return eventos;
@@ -123,12 +123,12 @@ public class QueryQuestionBean {
 		}
 
 	public void onEventSelect(SelectEvent event) {
+		this.setMensaje("");
 		this.even=(Event)event.getObject();
 		chat=appFacadeInterface.getComentarios(even);
 		System.out.println(chat.isEmpty());
 		this.rellenarChat(chat);
-		FacesContext.getCurrentInstance().addMessage("miForm:escogido",
-		 new FacesMessage("Evento escogido : Nº"+even.getEventNumber()+"["+even.getDescription()+"]"));
+
 		this.setQuests(even.getQuestions());
 		}
 	
@@ -166,15 +166,19 @@ public class QueryQuestionBean {
 		HttpSession httpSession = request.getSession();
 		Usuario user = (Usuario) httpSession.getAttribute("Usuario");
 		System.out.println(user.getUserName());
-	System.out.println(even);
-	//Usuario user = new Usuario("ChicoGuapo", "123", "123456789112", "pepe@pepa.pig", false);
-	Comentario com = new Comentario(text,even, user);
-	Comentario com1= appFacadeInterface.createComentario(com);
-	Event ev = com1.getEvent();
-	this.setText("");
-	System.out.println(com1);
-	chat=appFacadeInterface.getComentarios(ev);
-	this.rellenarChat(chat);
+		if(even==null) {
+			this.setMensaje("No se ha escogido ningún Evento al que añadir el comentario");
+		}else {
+			this.setMensaje("");
+			System.out.println(even);
+			Comentario com = new Comentario(text,even, user);
+			Comentario com1= appFacadeInterface.createComentario(com);
+			Event ev = com1.getEvent();
+			this.setText("");
+			System.out.println(com1);
+			chat=appFacadeInterface.getComentarios(ev);
+			this.rellenarChat(chat);
+		}
 	
 }
 
@@ -192,4 +196,20 @@ public String rellenarChat(List<Comentario> comentarios) {
 }
 
 
+
+
+public String getMensaje() {
+	return mensaje;
+}
+
+
+
+
+public void setMensaje(String mensaje) {
+	this.mensaje = mensaje;
+}
+
+public String salir() {
+	return "OkSalir";
+}
 }

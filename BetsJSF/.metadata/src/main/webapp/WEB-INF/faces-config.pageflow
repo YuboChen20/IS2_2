@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf16695485374890" configfile="/BetsJSF/src/main/webapp/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="Login.xhtml" x="338" y="370" id="pf16695515195281" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf16695515195283 pf16697600128356 pf16701771732740" inlinks="pf16697611041462" path="/Login.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="CreateQuestions.xhtml" x="554" y="178" id="pf16695515195294" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf16695515195283" path="/CreateQuestions.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="QueryQuestion.xhtml" x="554" y="562" id="pf16697600128357" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf16697600128356" path="/QueryQuestion.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="Login.xhtml" x="338" y="370" id="pf16695515195281" referenceLink="//@navigationRule.5/@navigationCase.0/@toViewId|" outlinks="pf16695515195283 pf16697600128356 pf16701771732740" inlinks="pf16697611041462 pf16715548256450 pf16715552377311" path="/Login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="CreateQuestions.xhtml" x="564" y="156" id="pf16695515195294" referenceLink="//@navigationRule.5/@fromViewId|" outlinks="pf16715552377311" inlinks="pf16695515195283" path="/CreateQuestions.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="QueryQuestion.xhtml" x="600" y="564" id="pf16697600128357" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf16715548256450" inlinks="pf16697600128356" path="/QueryQuestion.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="SignUp.xhtml" x="122" y="370" id="pf16697611041463" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" outlinks="pf16697611041462" inlinks="pf16701771732740" path="/SignUp.xhtml"/>
   <links id="pf16695515195283" target="pf16695515195294" source="pf16695515195281" outcome="okAdmin"/>
   <links id="pf16697600128356" target="pf16697600128357" source="pf16695515195281" outcome="okUser"/>
   <links id="pf16697611041462" target="pf16695515195281" source="pf16697611041463" outcome="OkSignUp"/>
   <links id="pf16701771732740" target="pf16697611041463" source="pf16695515195281" outcome="SignUpOk"/>
+  <links id="pf16715548256450" target="pf16695515195281" source="pf16697600128357" outcome="OkSalir"/>
+  <links id="pf16715552377311" target="pf16695515195281" source="pf16695515195294" outcome="OkSalir"/>
 </pageflow:Pageflow>

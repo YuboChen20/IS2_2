@@ -56,9 +56,23 @@ public class SignUpBean {
 
 	public String comprobar() {
 		Usuario us = this.appFacadeInterface.AddUser(nombre, password, numTarjeta, correoElec);
-		if(us!=null)	return "OkSignUp";
+		if(us!=null) {
+			this.vaciar();
+			return "OkSignUp";
+		}
 		this.setMg("Usuario ya existente");
 		return " ";
+	}
+	public String salir() {
+		this.vaciar();
+		return "OkSignUp";
+	}
+	public void vaciar() {
+		this.setNombre("");
+		this.setPassword("");
+		this.setNumTarjeta("");
+		this.setCorreoElec("");
+		this.setMg("");
 	}
 	
 }

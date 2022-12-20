@@ -1,0 +1,50 @@
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+form {
+
+    text-align:center;
+}
+
+.title-field{
+    font-size: 18px;
+}
+
+.input-field {
+    position: relative;
+    margin-top: 2rem;
+    width:10rem;
+}
+
+.input-field input {
+    padding: 0.5rem;
+}
+
+.table-field {
+    text-align:center;
+}
+
+.botton-field{
+    text-align:center;
+}
+
+
+
+form input[type="submit"] {
+    background: linear-gradient(to left, #4776E6, #8e54e9);
+    color: white;
+    border: none;
+    border-radius: 22px;
+    margin-top: 1rem;
+    padding: 8px 20px;
+      font-size: 18px;
+}
+
+form input[type="submit"]:hover {
+    background: #ddd;
+     color: black;
+}
+

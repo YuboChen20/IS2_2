@@ -5,25 +5,28 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
 xmlns:h="http://java.sun.com/jsf/html"
 xmlns:f="http://java.sun.com/jsf/core">
 <f:view>
-<h:head><title>Aplicación JavaServer Faces</title></h:head>
+<h:head><title>Aplicación JavaServer Faces</title>
+		<h:outputStylesheet library="css" name="main.css" />
+</h:head>
 <h:body>
 <h:form>
 <h3>Por favor, introduce tu nombre y tu contraseña </h3>
-<table>
-<tr>
-<td>Nombre:</td>
-<td><h:inputText id="nombre" value="#{login.nombre}"></h:inputText></td>
-</tr>
-<tr>
-<td>Contraseña:</td>
-<td><h:inputSecret id="pass" value="#{login.password}"></h:inputSecret></td>
-</tr>
 
-</table>
+
+<h>Nombre:     </h>
+<h:inputText id="nombre" value="#{login.nombre}" style="width:150px; width:170px"></h:inputText>
+<br/>
+<br/>
+<h>Contraseña:  </h>
+<h:inputSecret id="pass" value="#{login.password}" style="width:150px"></h:inputSecret>
+
+<br/>
+<br/>
 <h:outputText id="mes" value="#{login.messag}" style="color:red"></h:outputText>
-<br></br>
+
 <p>
 <h:commandButton value="Aceptar" action="#{login.comprobar}"/>
+<br/>
 <h:commandButton value="Registrarse" action="#{login.registrarse}"/>
 </p>
 </h:form>
