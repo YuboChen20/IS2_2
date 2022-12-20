@@ -182,6 +182,11 @@ public class DataAccess {
 		
 	}
 	
+	/**
+	 * Segun el numero de evento, conseguirlo de la base de datos
+	 * @param e, evento que se quiere recuperar
+	 * @return evento recuperado
+	 */
 	public Event getEvent(Event e) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		org.hibernate.Query q = session.createQuery("from Event e where e.eventNumber=:ev");
@@ -241,7 +246,12 @@ public class DataAccess {
 	 	return res;
 	}
 	
-	
+	/**
+	 * Cuestionar si existe una pregunta en un determinado evento
+	 * @param event, evento que se requiere
+	 * @param question, pregunta que se requiere
+	 * @return verdadero o falso de si existe
+	 */
 	public boolean existQuestion(Event event, String question) {
 		System.out.println(">> DataAccess: existQuestion=> event= "+event+" question= "+question);
 		Event ev= getEvent(event);
@@ -249,6 +259,11 @@ public class DataAccess {
 		
 	}
 	
+	/**
+	 * Conseguir un usuario de la base de datos a partir de su nombre
+	 * @param name, nombre del usuario
+	 * @return usuario buscado
+	 */
 	public Usuario getUser(String name) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction(); 
@@ -261,6 +276,14 @@ public class DataAccess {
 	    return u;
 	}
 		
+	/**
+	 * Crear un usuario y guardarlo en la base de datos
+	 * @param name, nombre del usuario
+	 * @param pass, contraseña del usuario
+	 * @param card, tarjeta de credito del usuario
+	 * @param correo, correo electronico del usuario
+	 * @return usuario creado
+	 */
 	public Usuario AddUser(String name,String pass,String card,String correo) {
 		Usuario u2 = this.getUser(name);
 		if(u2!=null || (name.compareTo("")==0)) return null;
@@ -272,6 +295,11 @@ public class DataAccess {
 	    return u;
 	}
 	
+	/**
+	 * Crear comentario y guardarlo en la base de datos
+	 * @param com, comentario a crear
+	 * @return comentario creado
+	 */
 	public Comentario createComentario(Comentario com) {
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 			System.out.println(">> DataAccess: createQuestion=> event= "+com.getEvent()+" comentario= "+com);
@@ -297,6 +325,11 @@ public class DataAccess {
 		
 	}
 	
+	/**
+	 * Consigue todos los comentarios de un evento
+	 * @param evento, el evento que corresponde
+	 * @return coleccion de comentarios
+	 */
 	public List<Comentario> getComentarios(Event evento){
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction(); 
@@ -307,7 +340,10 @@ public class DataAccess {
 	    return result;
 	}
 	
-	
+	/**
+	 * Instanciar la base de datos, mediante el metodo singleton
+	 * @param args, argumentos
+	 */
 	public static void main(String[] args) {
 		DataAccess ds= DataAccess.getInstance();
 

@@ -80,15 +80,33 @@ public class BLFacadeImplementation  implements BLFacade {
 		return dates;
 	}
 	
+	
+	/**
+	 * Conseguir usuario de la base de datos
+	 * @param name, nombre del usuario buscado
+	 * @return usuario buscado
+	 */
 	public Usuario getUser(String name){
 		return this.dbManager.getUser(name);
 	}
 	
-	
+	/**
+	 * Crear un usuario y guardarlo
+	 * @param name, nombre del usuario
+	 * @param pass, contraseña del usuario
+	 * @param card, tarjeta de credito
+	 * @param correo, el correo del usuario
+	 * @return usuario creado
+	 */
 	public Usuario AddUser(String name,String pass,String card,String correo) {
 		return this.dbManager.AddUser(name, pass, card, correo);
 	}
 	
+	/**
+	 * Crear un comentario y guardarlo
+	 * @param com, comentario a crear y guardar
+	 * @return comentario creado
+	 */
 	public Comentario createComentario(Comentario com){
 		   
 	    //The minimum bed must be greater than 0
@@ -104,7 +122,12 @@ public class BLFacadeImplementation  implements BLFacade {
 		
 		return coment;
  };
- 
+
+/**
+ * Consigue todos los comentarios de un evento
+ * @param evento, el evento que corresponde
+ * @return coleccion de comentarios
+ */
  public List<Comentario> getComentarios(Event evento){
 	 List<Comentario> lista = null;
 	 lista=dbManager.getComentarios(evento);

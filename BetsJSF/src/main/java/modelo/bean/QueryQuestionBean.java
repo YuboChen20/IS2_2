@@ -110,6 +110,10 @@ public class QueryQuestionBean {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha; 
 	}
+	/**
+	 * Seleccion de la fecha en el calendario de la pagina web
+	 * @param event, fecha seleccionada
+	 */
 	public void onDateSelect(SelectEvent event) {
 		this.even=null;
 		this.quests=null;
@@ -124,6 +128,10 @@ public class QueryQuestionBean {
 		 return null;
 		}
 
+	/**
+	 * Seleccionar el evento de la lista de la pagina web
+	 * @param event, evento seleccionado
+	 */
 	public void onEventSelect(SelectEvent event) {
 		this.setMensaje("");
 		this.even=(Event)event.getObject();
@@ -162,6 +170,9 @@ public class QueryQuestionBean {
 		this.ult = ult;
 	}
 
+	/**
+	 * Funcion que guarda el comentario creado por el usuario
+	 */
 	public void sendComment() {
 
 		Usuario user = recuperarUsuario();
@@ -181,7 +192,10 @@ public class QueryQuestionBean {
 	
 }
 
-
+	/**
+	 * Funcion para recuperar al usuario que inicia sesion, via la sesion antes guardada.
+	 * @return usuario requerido
+	 */
 	public Usuario recuperarUsuario() {
 		FacesContext ectx= FacesContext.getCurrentInstance();
 		HttpServletRequest request=(HttpServletRequest) ectx.getExternalContext().getRequest();
@@ -190,6 +204,11 @@ public class QueryQuestionBean {
 		return user;
 	}
 
+	/**
+	 * Funcion que rellena el area de chat con los comentarios recividos
+	 * @param comentarios, lista de comentarios de un determinado evento
+	 * @return string formado por comentarios, separados por saltos de linea
+	 */
 	public String rellenarChat(List<Comentario> comentarios) {
 		this.setUlt("");
 		for(Comentario com:comentarios) {
@@ -217,6 +236,10 @@ public class QueryQuestionBean {
 		this.mensaje = mensaje;
 	}
 	
+	/**
+	 * Boton para salir de la pagina web
+	 * @return string para salir
+	 */
 	public String salir() {
 		return "OkSalir";
 	}

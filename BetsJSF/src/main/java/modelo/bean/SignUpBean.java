@@ -54,6 +54,10 @@ public class SignUpBean {
 		this.mg = mg;
 	}
 
+	/**
+	 * Crear y comprobar que se a guardado bien el usuario
+	 * @return String que determina el exito del guardado
+	 */
 	public String comprobar() {
 		Usuario us = this.appFacadeInterface.AddUser(nombre, password, numTarjeta, correoElec);
 		if(us!=null) {
@@ -63,10 +67,19 @@ public class SignUpBean {
 		this.setMg("Usuario inválido");
 		return " ";
 	}
+	
+	/**
+	 * Boton para salir de la pagina web
+	 * @return string para salir
+	 */
 	public String salir() {
 		this.vaciar();
 		return "OkSignUp";
 	}
+	
+	/**
+	 * Funcion que vacia los espacios disponibles para rellenar
+	 */
 	public void vaciar() {
 		this.setNombre("");
 		this.setPassword("");

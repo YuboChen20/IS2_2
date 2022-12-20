@@ -36,6 +36,11 @@ public class LoginBean {
 	public void setMessag(String messag) {
 		this.messag = messag;
 	}
+	
+	/**
+	 * Comprobar que la cuenta sea la correcta, si el usuario no existe, la contraseña es incorrecta, saltara el error, si no, confirmara su existencia.
+	 * @return string que determina su existencia.
+	 */
 	public String comprobar() {
 		Usuario user = appFacadeInterface.getUser(nombre);
 		guardarUsuario(user);
@@ -56,6 +61,11 @@ public class LoginBean {
 		this.setMessag("Error el usuario no Existe");
 		return "";	 
 	}
+	
+	/**
+	 * Guardar el usuario en caso de confirmar su existencia en la sesion, para luego poder acceder a el via sesion.
+	 * @param user, usuario a guardar
+	 */
 	public void guardarUsuario(Usuario user) {
 		FacesContext ectx= FacesContext.getCurrentInstance();
 		HttpServletRequest request=(HttpServletRequest) ectx.getExternalContext().getRequest();
@@ -69,11 +79,18 @@ public class LoginBean {
 	public void setAppFacadeInterface(BLFacade appFacadeInterface) {
 		this.appFacadeInterface = appFacadeInterface;
 	}
+	
+	/**
+	 * Boton para pasar a la pagina de registrarse
+	 * @return string para confirmarlo
+	 */
 	public String registrarse() {
 		this.vaciar();
 		return "SignUpOk";
 	}
-	
+	/**
+	 * Funcion que vacia los espacios disponibles para rellenar
+	 */
 	public void vaciar() {
 		this.setNombre("");
 		this.setPassword("");

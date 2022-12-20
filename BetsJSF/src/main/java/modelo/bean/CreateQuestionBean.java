@@ -98,6 +98,9 @@ public class CreateQuestionBean {
 		this.betMinimum = betMinimum;
 	}
 	
+	/**
+	 * Crear una pregunta para el evento, en caso de no seleccionar el evento o rellenar la pregunta, saltara como error.
+	 */
 	public void create() {
 
 		if(this.ev==null) {
@@ -126,6 +129,10 @@ public class CreateQuestionBean {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha; 
 	}
+	/**
+	 * Seleccion de la fecha en el calendario de la pagina web
+	 * @param event, fecha seleccionada
+	 */
 	public void onDateSelect(SelectEvent event) {
 		 this.ev=null;
 		 this.questions=null;
@@ -148,6 +155,10 @@ public class CreateQuestionBean {
 		 return null;
 		}
 
+	/**
+	 * Seleccionar el evento de la lista de la pagina web
+	 * @param event, evento seleccionado
+	 */
 	public void onEventSelect(SelectEvent event) {
 		this.ev=(Event)event.getObject();
 		FacesContext.getCurrentInstance().addMessage("miForm:escogido",
@@ -155,6 +166,10 @@ public class CreateQuestionBean {
 		this.setQuests(ev.getQuestions());
 		}
 
+	/**
+	 * Boton para salir de la pagina web
+	 * @return string para salir
+	 */
 	public String salir() {
 		return "OkSalir";
 	}

@@ -54,33 +54,43 @@ public class Usuario {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+	
 	public String getPassword() {
 		return password;
 	}
+	
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
 	public String getCardCode() {
 		return cardCode;
 	}
+	
 	public void setCardCode(String cardCode) {
 		this.cardCode = cardCode;
 	}
+	
 	public String getCorreo() {
 		return correo;
 	}
+	
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
+	
 	public boolean isAdmin() {
 		return admin;
 	}
+	
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
 	}
+	
 	public double getDinero() {
 		return dinero;
 	}
+	
 	public void setDinero(double dinero) {
 		this.dinero = dinero;
 	}
