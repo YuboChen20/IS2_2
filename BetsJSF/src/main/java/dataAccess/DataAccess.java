@@ -62,27 +62,27 @@ public class DataAccess {
 		   int year=today.get(Calendar.YEAR);
 		   if (month==12) { month=0; year+=1;}  
 	    
-			Event ev1=new Event(1, "AtlÃ©tico-Athletic", UtilDate.newDate(year,month,17));
+			Event ev1=new Event(1, "Atlético-Athletic", UtilDate.newDate(year,month,17));
 			Event ev2=new Event(2, "Eibar-Barcelona", UtilDate.newDate(year,month,17));
 			Event ev3=new Event(3, "Getafe-Celta", UtilDate.newDate(year,month,17));
-			Event ev4=new Event(4, "AlavÃ©s-Deportivo", UtilDate.newDate(year,month,17));
-			Event ev5=new Event(5, "EspaÃ±ol-Villareal", UtilDate.newDate(year,month,17));
+			Event ev4=new Event(4, "Alavás-Deportivo", UtilDate.newDate(year,month,17));
+			Event ev5=new Event(5, "Español-Villareal", UtilDate.newDate(year,month,17));
 			Event ev6=new Event(6, "Las Palmas-Sevilla", UtilDate.newDate(year,month,17));
 			Event ev7=new Event(7, "Malaga-Valencia", UtilDate.newDate(year,month,17));
-			Event ev8=new Event(8, "Girona-LeganÃ©s", UtilDate.newDate(year,month,17));
+			Event ev8=new Event(8, "Girona-Leganos", UtilDate.newDate(year,month,17));
 			Event ev9=new Event(9, "Real Sociedad-Levante", UtilDate.newDate(year,month,17));
 			Event ev10=new Event(10, "Betis-Real Madrid", UtilDate.newDate(year,month,17));
 
 			Event ev11=new Event(11, "Atletico-Athletic", UtilDate.newDate(year,month,1));
 			Event ev12=new Event(12, "Eibar-Barcelona", UtilDate.newDate(year,month,1));
 			Event ev13=new Event(13, "Getafe-Celta", UtilDate.newDate(year,month,1));
-			Event ev14=new Event(14, "AlavÃ©s-Deportivo", UtilDate.newDate(year,month,1));
-			Event ev15=new Event(15, "EspaÃ±ol-Villareal", UtilDate.newDate(year,month,1));
+			Event ev14=new Event(14, "Alavás-Deportivo", UtilDate.newDate(year,month,1));
+			Event ev15=new Event(15, "Español-Villareal", UtilDate.newDate(year,month,1));
 			Event ev16=new Event(16, "Las Palmas-Sevilla", UtilDate.newDate(year,month,1));
 			
 
-			Event ev17=new Event(17, "MÃ¡laga-Valencia", UtilDate.newDate(year,month,28));
-			Event ev18=new Event(18, "Girona-LeganÃ©s", UtilDate.newDate(year,month,28));
+			Event ev17=new Event(17, "Málaga-Valencia", UtilDate.newDate(year,month,28));
+			Event ev18=new Event(18, "Girona-Leganos", UtilDate.newDate(year,month,28));
 			Event ev19=new Event(19, "Real Sociedad-Levante", UtilDate.newDate(year,month,28));
 			Event ev20=new Event(20, "Betis-Real Madrid", UtilDate.newDate(year,month,28));
 			
@@ -94,28 +94,27 @@ public class DataAccess {
 			Question q6;
 					
 		
-			q1=ev1.addQuestion("Â¿QuiÃ©n ganarÃ¡ el partido?",1);
-			q2=ev1.addQuestion("Â¿QuiÃ©n meterÃ¡ el primer gol?",2);
-			q3=ev11.addQuestion("Â¿QuiÃ©n ganarÃ¡ el partido?",1);
-			q4=ev11.addQuestion("Â¿CuÃ¡ntos goles se marcarÃ¡n?",2);
-			q5=ev17.addQuestion("Â¿QuiÃ©n ganarÃ¡ el partido?",1);
-			q6=ev17.addQuestion("Â¿HabrÃ¡ goles en la primera parte?",2);
+			q1=ev1.addQuestion("¿Quién ganará el partido?",1);
+			q2=ev1.addQuestion("¿Quién meterá el primer gol?",2);
+			q3=ev11.addQuestion("¿Quién ganará el partido?",1);
+			q4=ev11.addQuestion("¿Cuántos goles se marcarán?",2);
+			q5=ev17.addQuestion("¿Quién ganará el partido?",1);
+			q6=ev17.addQuestion("¿Habrá goles en la primera parte?",2);
 			
 			
 			
-			Usuario us = new Usuario("Yub","123",null,null,true);
+			Usuario us = new Usuario("Yubo","123",null,null,true);
 			Usuario us2 = new Usuario("Silvia","123",null,null,true);
 			Usuario us3 = new Usuario("Carlos","123",null,null,true);
 			Usuario us4 = new Usuario("User","123","123456789012","usuariomasguapo@gmail.com",false);
-			
+			Usuario us5 = new Usuario("Maider","123",null,null,true);
 			
 			Comentario c1 = new Comentario("Hola",ev1,us4);
 			session.persist(us);
 			session.persist(us2);
 			session.persist(us3);
 			session.persist(us4);
-			
-			
+			session.persist(us5);
 	
 	        
 			session.save(ev1);
@@ -242,86 +241,79 @@ public class DataAccess {
 	 	return res;
 	}
 	
-
-public boolean existQuestion(Event event, String question) {
-	System.out.println(">> DataAccess: existQuestion=> event= "+event+" question= "+question);
-	Event ev= getEvent(event);
-	return ev.DoesQuestionExists(question);
 	
-}
-
-public Usuario getUser(String name) {
-	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-	session.beginTransaction(); 
-	org.hibernate.Query q = session.createQuery("from Usuario e where e.userName=:nn");
-    q.setParameter("nn", name);
-    List<Usuario> result=q.list();
-    if (result.isEmpty()) return null;
-    Usuario u=result.get(0);
-    session.getTransaction().commit();
-    return u;
-}
+	public boolean existQuestion(Event event, String question) {
+		System.out.println(">> DataAccess: existQuestion=> event= "+event+" question= "+question);
+		Event ev= getEvent(event);
+		return ev.DoesQuestionExists(question);
+		
+	}
 	
-public Usuario AddUser(String name,String pass,String card,String correo) {
-	Usuario u2 = this.getUser(name);
-	if(u2!=null) return null;
-	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-	session.beginTransaction(); 
-	Usuario u = new Usuario(name,pass,card,correo,false);
-	session.save(u);
-    session.getTransaction().commit();
-    return u;
-}
-
-public Comentario createComentario(Comentario com) {
-	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-	System.out.println(">> DataAccess: createQuestion=> event= "+com.getEvent()+" comentario= "+com);
-	System.out.println(session+" "+com.getEvent());
-	
-		session.beginTransaction();
+	public Usuario getUser(String name) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction(); 
 		org.hibernate.Query q = session.createQuery("from Usuario e where e.userName=:nn");
-	   
-		q.setParameter("nn", com.getUsuario().getUserName());
+	    q.setParameter("nn", name);
 	    List<Usuario> result=q.list();
-	    if (result.isEmpty()) return null;
-	    Usuario us=result.get(0);
-				
-	    System.out.println(us.getUserName()+"-----------------");
-	    us.addComentario(com);
-		 
-		Event ev= getEvent(com.getEvent());
-		//session.beginTransaction(); 
-		ev.addComentario(com);
+	    Usuario u = null;
+	    if (!result.isEmpty()) u=result.get(0);
+	    session.getTransaction().commit();
+	    return u;
+	}
 		
+	public Usuario AddUser(String name,String pass,String card,String correo) {
+		Usuario u2 = this.getUser(name);
+		if(u2!=null || (name.compareTo("")==0)) return null;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction(); 
+		Usuario u = new Usuario(name,pass,card,correo,false);
+		session.save(u);
+	    session.getTransaction().commit();
+	    return u;
+	}
+	
+	public Comentario createComentario(Comentario com) {
+			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+			System.out.println(">> DataAccess: createQuestion=> event= "+com.getEvent()+" comentario= "+com);
+			System.out.println(session+" "+com.getEvent());
 		
+			session.beginTransaction();
+			org.hibernate.Query q = session.createQuery("from Usuario e where e.userName=:nn");  
+			q.setParameter("nn", com.getUsuario().getUserName());
+		    List<Usuario> result=q.list();
+		    if (result.isEmpty()) {
+		    	session.getTransaction().commit();
+		    	return null;
+		    }    	
+		    Usuario us=result.get(0);
+		    us.addComentario(com);	 
+			Event ev= getEvent(com.getEvent());
+			ev.addComentario(com);
+			session.save(us);
+			session.save(ev);
+			session.save(com);
+			session.getTransaction().commit();
+			return com;
 		
-		session.save(us);
-		session.save(ev);
-		session.save(com);
-		session.getTransaction().commit();
-		return com;
+	}
+	
+	public List<Comentario> getComentarios(Event evento){
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction(); 
+		org.hibernate.Query q = session.createQuery("from Comentario where event_eventNumber=:ev");
+	    q.setParameter("ev", evento.getEventNumber());
+	    List<Comentario> result=q.list();
+	    session.getTransaction().commit();
+	    return result;
+	}
+	
+	
+	public static void main(String[] args) {
+		DataAccess ds= DataAccess.getInstance();
+
+		
+	}
+	
 	
 }
-
-public List<Comentario> getComentarios(Event evento){
-	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-	session.beginTransaction(); 
-	System.out.println(evento.getEventNumber().toString());
-	org.hibernate.Query q = session.createQuery("from Comentario where event_eventNumber=:ev");
-    q.setParameter("ev", evento.getEventNumber());
-    List<Comentario> result=q.list();
-    session.getTransaction().commit();
-    return result;
-}
-
-
-public static void main(String[] args) {
-	DataAccess ds= DataAccess.getInstance();
-	//Question q=createQuestion(event,question,(float)3.2);
 	
-	ds.getUser("Hola").toString();
-}
-
-
-}
-

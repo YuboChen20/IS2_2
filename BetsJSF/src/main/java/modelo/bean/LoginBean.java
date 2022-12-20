@@ -38,10 +38,8 @@ public class LoginBean {
 	}
 	public String comprobar() {
 		Usuario user = appFacadeInterface.getUser(nombre);
-		FacesContext ectx= FacesContext.getCurrentInstance();
-		HttpServletRequest request=(HttpServletRequest) ectx.getExternalContext().getRequest();
-		HttpSession httpSession = request.getSession();
-		httpSession.setAttribute("Usuario", user);
+		guardarUsuario(user);
+		
 		if(user!=null) {
 			if(user.getPassword().equals(password)) {
 				this.vaciar();
@@ -57,6 +55,12 @@ public class LoginBean {
 		}
 		this.setMessag("Error el usuario no Existe");
 		return "";	 
+	}
+	public void guardarUsuario(Usuario user) {
+		FacesContext ectx= FacesContext.getCurrentInstance();
+		HttpServletRequest request=(HttpServletRequest) ectx.getExternalContext().getRequest();
+		HttpSession httpSession = request.getSession();
+		httpSession.setAttribute("Usuario", user);
 	} 
 	
 	public BLFacade getAppFacadeInterface() {

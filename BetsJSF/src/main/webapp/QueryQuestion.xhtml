@@ -23,7 +23,7 @@ xmlns:p="http://primefaces.org/ui">
 <td>Escoge una fecha:
 <p:calendar id="fecha" value="#{queryQuestion.fecha}" navigator="false" mode="inline">
 <p:ajax event="dateSelect" listener="#{queryQuestion.onDateSelect}"
-update=":miForm:mensajes :miForm:tablaPF :miForm:tablaQ :miForm:escogido :miForm:escogido2"></p:ajax>
+update=":miForm:mensajes :miForm:tablaPF :miForm:tablaQ :miForm:escogido :miForm:comfield"></p:ajax>
 </p:calendar>
 <p>
 <h:outputText id="mensajes" style="color:blue"/>
@@ -31,7 +31,7 @@ update=":miForm:mensajes :miForm:tablaPF :miForm:tablaQ :miForm:escogido :miForm
 
 </td>
 
-<td><p:dataTable id="tablaPF" scrollable="true" scrollHeight="165" style="width:450px" value="#{queryQuestion.eventos}" var="item" selectionMode="single"
+<td><p:dataTable id="tablaPF" scrollable="true" scrollHeight="165" style="width:450px" value="#{queryQuestion.events}" var="item" selectionMode="single"
 selection="#{queryQuestion.even}" border="1" rowKey="#{item.eventNumber}">
 <p:ajax event="rowSelect" listener="#{queryQuestion.onEventSelect}"
  update=":miForm:escogido :miForm:tablaQ :miForm:comfield :miForm:mensaje" ></p:ajax>
@@ -50,7 +50,6 @@ selection="#{queryQuestion.quest}" border="1" rowKey="#{item.questionNumber}">
 <p:column width="70" style="text-align:center" headerText="Mínimo €">#{item.betMinimum}</p:column>
 <p:column headerText="Descripción">#{item.question}</p:column>
 </p:dataTable></td>
-<td><h:outputText id="escogido2" value="#{queryQuestion.quest}" style="color:red" /></td>
 </tr> 
 
 </table>

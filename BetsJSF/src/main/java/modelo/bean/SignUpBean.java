@@ -60,7 +60,7 @@ public class SignUpBean {
 			this.vaciar();
 			return "OkSignUp";
 		}
-		this.setMg("Usuario ya existente");
+		this.setMg("Usuario inválido");
 		return " ";
 	}
 	public String salir() {

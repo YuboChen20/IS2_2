@@ -1,6 +1,7 @@
 package modelo.bean;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -32,12 +33,13 @@ public class QueryQuestionBean {
 	private String userName;
 	private String mensaje;
 	
-	private static List<Event> eventos=new ArrayList<Event>();
+	private static List<Event> events=new ArrayList<Event>();
 	private static List<Question> quests=new ArrayList<Question>();
 	private static List<Comentario> chat = new ArrayList<Comentario>();
 	
 	public QueryQuestionBean() {
-		 appFacadeInterface=new BLFacadeImplementation(DataAccess.getInstance());
+		appFacadeInterface=new BLFacadeImplementation(DataAccess.getInstance());
+		
 	}
 	
 	
@@ -94,11 +96,11 @@ public class QueryQuestionBean {
 	public void setEven(Event even) {
 		 this.even = even;
 	}
-	public List<Event> getEventos() {
-		 return eventos;
+	public List<Event> getEvents() {
+		 return events;
 	}
-	public void setEventos(List<Event> eventos) {
-		 this.eventos = eventos;
+	public void setEvents(List<Event> events) {
+		 this.events = events;
 	}
 
 
@@ -112,11 +114,11 @@ public class QueryQuestionBean {
 		this.even=null;
 		this.quests=null;
 		 
-		 this.setEventos(appFacadeInterface.getEvents((Date)event.getObject()));
+		 this.setEvents(appFacadeInterface.getEvents((Date)event.getObject()));
 	
 	}
 	public static Event getObject(String even) {
-		 for (Event t: eventos){
+		 for (Event t: events){
 		 if (even.equals(t.getDescription()))
 		 return t;}
 		 return null;
@@ -128,8 +130,9 @@ public class QueryQuestionBean {
 		chat=appFacadeInterface.getComentarios(even);
 		System.out.println(chat.isEmpty());
 		this.rellenarChat(chat);
-
+		System.out.println(even.getQuestions().size());
 		this.setQuests(even.getQuestions());
+		System.out.println(quests.size());
 		}
 	
 	
@@ -160,17 +163,13 @@ public class QueryQuestionBean {
 	}
 
 	public void sendComment() {
-	//System.out.println(this.getUserName());
-		FacesContext ectx= FacesContext.getCurrentInstance();
-		HttpServletRequest request=(HttpServletRequest) ectx.getExternalContext().getRequest();
-		HttpSession httpSession = request.getSession();
-		Usuario user = (Usuario) httpSession.getAttribute("Usuario");
-		System.out.println(user.getUserName());
+
+		Usuario user = recuperarUsuario();
+		
 		if(even==null) {
 			this.setMensaje("No se ha escogido ningún Evento al que añadir el comentario");
 		}else {
 			this.setMensaje("");
-			System.out.println(even);
 			Comentario com = new Comentario(text,even, user);
 			Comentario com1= appFacadeInterface.createComentario(com);
 			Event ev = com1.getEvent();
@@ -182,34 +181,43 @@ public class QueryQuestionBean {
 	
 }
 
-public String rellenarChat(List<Comentario> comentarios) {
-	this.setUlt("");
-	for(Comentario com:comentarios) {
-		if(this.getUlt().compareTo("")==0) {
-			this.setUlt(com.toString());
-		}else {
-			this.setUlt(this.getUlt()+"\n"+com.toString());
-			
-		}
+
+	public Usuario recuperarUsuario() {
+		FacesContext ectx= FacesContext.getCurrentInstance();
+		HttpServletRequest request=(HttpServletRequest) ectx.getExternalContext().getRequest();
+		HttpSession httpSession = request.getSession();
+		Usuario user = (Usuario) httpSession.getAttribute("Usuario");
+		return user;
 	}
-	return ult;
-}
 
-
-
-
-public String getMensaje() {
-	return mensaje;
-}
-
-
-
-
-public void setMensaje(String mensaje) {
-	this.mensaje = mensaje;
-}
-
-public String salir() {
-	return "OkSalir";
-}
+	public String rellenarChat(List<Comentario> comentarios) {
+		this.setUlt("");
+		for(Comentario com:comentarios) {
+			if(this.getUlt().compareTo("")==0) {
+				this.setUlt(com.toString());
+			}else {
+				this.setUlt(this.getUlt()+"\n"+com.toString());
+				
+			}
+		}
+		return ult;
+	}
+	
+	
+	
+	
+	public String getMensaje() {
+		return mensaje;
+	}
+	
+	
+	
+	
+	public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
+	}
+	
+	public String salir() {
+		return "OkSalir";
+	}
 }
